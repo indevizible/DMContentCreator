@@ -1,0 +1,487 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BBA2E67817E89428005ADEBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67717E89428005ADEBE /* UIKit.framework */; };
+		BBA2E67A17E89428005ADEBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67917E89428005ADEBE /* Foundation.framework */; };
+		BBA2E67C17E89428005ADEBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */; };
+		BBA2E68217E89428005ADEBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E68017E89428005ADEBE /* InfoPlist.strings */; };
+		BBA2E68417E89428005ADEBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E68317E89428005ADEBE /* main.m */; };
+		BBA2E68817E89428005ADEBE /* DMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E68717E89428005ADEBE /* DMAppDelegate.m */; };
+		BBA2E68A17E89428005ADEBE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E68917E89428005ADEBE /* Default.png */; };
+		BBA2E68C17E89428005ADEBE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E68B17E89428005ADEBE /* Default@2x.png */; };
+		BBA2E68E17E89428005ADEBE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E68D17E89428005ADEBE /* Default-568h@2x.png */; };
+		BBA2E69617E89428005ADEBE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E69517E89428005ADEBE /* SenTestingKit.framework */; };
+		BBA2E69717E89428005ADEBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67717E89428005ADEBE /* UIKit.framework */; };
+		BBA2E69817E89428005ADEBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67917E89428005ADEBE /* Foundation.framework */; };
+		BBA2E6A017E89428005ADEBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E69E17E89428005ADEBE /* InfoPlist.strings */; };
+		BBA2E6A317E89428005ADEBE /* DMContentCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */; };
+		BBA2E6B117E895E8005ADEBE /* DMContentCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */; };
+		BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */; };
+		BBA2E6B617E89973005ADEBE /* item-background-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B417E89973005ADEBE /* item-background-gray.png */; };
+		BBA2E6B717E89973005ADEBE /* item-background-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBA2E69917E89428005ADEBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA2E66C17E89428005ADEBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBA2E67317E89428005ADEBE;
+			remoteInfo = DMContentCreator;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BBA2E67417E89428005ADEBE /* DMContentCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMContentCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBA2E67717E89428005ADEBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BBA2E67917E89428005ADEBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BBA2E67F17E89428005ADEBE /* DMContentCreator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DMContentCreator-Info.plist"; sourceTree = "<group>"; };
+		BBA2E68117E89428005ADEBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BBA2E68317E89428005ADEBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BBA2E68517E89428005ADEBE /* DMContentCreator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DMContentCreator-Prefix.pch"; sourceTree = "<group>"; };
+		BBA2E68617E89428005ADEBE /* DMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DMAppDelegate.h; sourceTree = "<group>"; };
+		BBA2E68717E89428005ADEBE /* DMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMAppDelegate.m; sourceTree = "<group>"; };
+		BBA2E68917E89428005ADEBE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		BBA2E68B17E89428005ADEBE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		BBA2E68D17E89428005ADEBE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BBA2E69417E89428005ADEBE /* DMContentCreatorTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DMContentCreatorTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBA2E69517E89428005ADEBE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		BBA2E69D17E89428005ADEBE /* DMContentCreatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DMContentCreatorTests-Info.plist"; sourceTree = "<group>"; };
+		BBA2E69F17E89428005ADEBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BBA2E6A117E89428005ADEBE /* DMContentCreatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DMContentCreatorTests.h; sourceTree = "<group>"; };
+		BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMContentCreatorTests.m; sourceTree = "<group>"; };
+		BBA2E6AF17E895E8005ADEBE /* DMContentCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMContentCreator.h; sourceTree = "<group>"; };
+		BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMContentCreator.m; sourceTree = "<group>"; };
+		BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "iPhone-DMContentCreator.storyboard"; sourceTree = "<group>"; };
+		BBA2E6B417E89973005ADEBE /* item-background-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-background-gray.png"; sourceTree = "<group>"; };
+		BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-background-gray@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBA2E67117E89428005ADEBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E67817E89428005ADEBE /* UIKit.framework in Frameworks */,
+				BBA2E67A17E89428005ADEBE /* Foundation.framework in Frameworks */,
+				BBA2E67C17E89428005ADEBE /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBA2E69017E89428005ADEBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E69617E89428005ADEBE /* SenTestingKit.framework in Frameworks */,
+				BBA2E69717E89428005ADEBE /* UIKit.framework in Frameworks */,
+				BBA2E69817E89428005ADEBE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBA2E66B17E89428005ADEBE = {
+			isa = PBXGroup;
+			children = (
+				BBA2E67D17E89428005ADEBE /* DMContentCreator */,
+				BBA2E69B17E89428005ADEBE /* DMContentCreatorTests */,
+				BBA2E67617E89428005ADEBE /* Frameworks */,
+				BBA2E67517E89428005ADEBE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBA2E67517E89428005ADEBE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E67417E89428005ADEBE /* DMContentCreator.app */,
+				BBA2E69417E89428005ADEBE /* DMContentCreatorTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBA2E67617E89428005ADEBE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E67717E89428005ADEBE /* UIKit.framework */,
+				BBA2E67917E89428005ADEBE /* Foundation.framework */,
+				BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */,
+				BBA2E69517E89428005ADEBE /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BBA2E67D17E89428005ADEBE /* DMContentCreator */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E6AE17E8947E005ADEBE /* Resources */,
+				BBA2E6AC17E8944E005ADEBE /* Classes */,
+				BBA2E68617E89428005ADEBE /* DMAppDelegate.h */,
+				BBA2E68717E89428005ADEBE /* DMAppDelegate.m */,
+				BBA2E67E17E89428005ADEBE /* Supporting Files */,
+			);
+			path = DMContentCreator;
+			sourceTree = "<group>";
+		};
+		BBA2E67E17E89428005ADEBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E67F17E89428005ADEBE /* DMContentCreator-Info.plist */,
+				BBA2E68017E89428005ADEBE /* InfoPlist.strings */,
+				BBA2E68317E89428005ADEBE /* main.m */,
+				BBA2E68517E89428005ADEBE /* DMContentCreator-Prefix.pch */,
+				BBA2E68917E89428005ADEBE /* Default.png */,
+				BBA2E68B17E89428005ADEBE /* Default@2x.png */,
+				BBA2E68D17E89428005ADEBE /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BBA2E69B17E89428005ADEBE /* DMContentCreatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E6A117E89428005ADEBE /* DMContentCreatorTests.h */,
+				BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */,
+				BBA2E69C17E89428005ADEBE /* Supporting Files */,
+			);
+			path = DMContentCreatorTests;
+			sourceTree = "<group>";
+		};
+		BBA2E69C17E89428005ADEBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E69D17E89428005ADEBE /* DMContentCreatorTests-Info.plist */,
+				BBA2E69E17E89428005ADEBE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BBA2E6AC17E8944E005ADEBE /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E6AF17E895E8005ADEBE /* DMContentCreator.h */,
+				BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		BBA2E6AE17E8947E005ADEBE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BBA2E6B417E89973005ADEBE /* item-background-gray.png */,
+				BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */,
+				BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BBA2E67317E89428005ADEBE /* DMContentCreator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBA2E6A617E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreator" */;
+			buildPhases = (
+				BBA2E67017E89428005ADEBE /* Sources */,
+				BBA2E67117E89428005ADEBE /* Frameworks */,
+				BBA2E67217E89428005ADEBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DMContentCreator;
+			productName = DMContentCreator;
+			productReference = BBA2E67417E89428005ADEBE /* DMContentCreator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BBA2E69317E89428005ADEBE /* DMContentCreatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBA2E6A917E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreatorTests" */;
+			buildPhases = (
+				BBA2E68F17E89428005ADEBE /* Sources */,
+				BBA2E69017E89428005ADEBE /* Frameworks */,
+				BBA2E69117E89428005ADEBE /* Resources */,
+				BBA2E69217E89428005ADEBE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BBA2E69A17E89428005ADEBE /* PBXTargetDependency */,
+			);
+			name = DMContentCreatorTests;
+			productName = DMContentCreatorTests;
+			productReference = BBA2E69417E89428005ADEBE /* DMContentCreatorTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBA2E66C17E89428005ADEBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DM;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = infostant;
+			};
+			buildConfigurationList = BBA2E66F17E89428005ADEBE /* Build configuration list for PBXProject "DMContentCreator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BBA2E66B17E89428005ADEBE;
+			productRefGroup = BBA2E67517E89428005ADEBE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBA2E67317E89428005ADEBE /* DMContentCreator */,
+				BBA2E69317E89428005ADEBE /* DMContentCreatorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BBA2E67217E89428005ADEBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E68217E89428005ADEBE /* InfoPlist.strings in Resources */,
+				BBA2E68A17E89428005ADEBE /* Default.png in Resources */,
+				BBA2E68C17E89428005ADEBE /* Default@2x.png in Resources */,
+				BBA2E68E17E89428005ADEBE /* Default-568h@2x.png in Resources */,
+				BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */,
+				BBA2E6B617E89973005ADEBE /* item-background-gray.png in Resources */,
+				BBA2E6B717E89973005ADEBE /* item-background-gray@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBA2E69117E89428005ADEBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E6A017E89428005ADEBE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BBA2E69217E89428005ADEBE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBA2E67017E89428005ADEBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E68417E89428005ADEBE /* main.m in Sources */,
+				BBA2E68817E89428005ADEBE /* DMAppDelegate.m in Sources */,
+				BBA2E6B117E895E8005ADEBE /* DMContentCreator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBA2E68F17E89428005ADEBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBA2E6A317E89428005ADEBE /* DMContentCreatorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBA2E69A17E89428005ADEBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBA2E67317E89428005ADEBE /* DMContentCreator */;
+			targetProxy = BBA2E69917E89428005ADEBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BBA2E68017E89428005ADEBE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBA2E68117E89428005ADEBE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BBA2E69E17E89428005ADEBE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBA2E69F17E89428005ADEBE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BBA2E6A417E89428005ADEBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BBA2E6A517E89428005ADEBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BBA2E6A717E89428005ADEBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
+				INFOPLIST_FILE = "DMContentCreator/DMContentCreator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BBA2E6A817E89428005ADEBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
+				INFOPLIST_FILE = "DMContentCreator/DMContentCreator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		BBA2E6AA17E89428005ADEBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DMContentCreator.app/DMContentCreator";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
+				INFOPLIST_FILE = "DMContentCreatorTests/DMContentCreatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		BBA2E6AB17E89428005ADEBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DMContentCreator.app/DMContentCreator";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
+				INFOPLIST_FILE = "DMContentCreatorTests/DMContentCreatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBA2E66F17E89428005ADEBE /* Build configuration list for PBXProject "DMContentCreator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBA2E6A417E89428005ADEBE /* Debug */,
+				BBA2E6A517E89428005ADEBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBA2E6A617E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBA2E6A717E89428005ADEBE /* Debug */,
+				BBA2E6A817E89428005ADEBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BBA2E6A917E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBA2E6AA17E89428005ADEBE /* Debug */,
+				BBA2E6AB17E89428005ADEBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BBA2E66C17E89428005ADEBE /* Project object */;
+}
