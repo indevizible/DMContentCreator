@@ -146,12 +146,12 @@
 }
 
 +(instancetype)contentCreatorForIPhoneDevice{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone_DmContentCreator" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:nil];
     return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
 }
 
 -(instancetype)instance{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone_DmContentCreator" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:nil];
     return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
 }
 @end
