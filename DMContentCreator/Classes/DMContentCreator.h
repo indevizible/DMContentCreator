@@ -15,4 +15,6 @@ typedef void(^successBlock)(id productid);
 @property (nonatomic,strong) NSURL *clientURL;
 @property (nonatomic,copy) id handler;
 @property (nonatomic,strong) UIColor *color;
+
++(instancetype)contentCreatorForIPhoneDevice;
 @end

@@ -7,9 +7,9 @@
 //
 
 #import "DMContentCreator.h"
-
-
-
+#import <iOS7Colors/UIColor+iOS7Colors.h>
+#import <WTGlyphFontSet/WTGlyphFontSet.h>
+#import <BlocksKit/BlocksKit.h>
 @interface DMContentCreator ()
 
 @end
@@ -29,11 +29,23 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if (!_color) {
+        [self setColor:[UIColor iOS7darkBlueColor]];
+    }
+    
+    if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
+        UIBarButtonItem *closeButton = [self barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
+            [self dismissViewControllerAnimated:YES completion:^{
+                NSLog(@"CLOSE");
+            }];
+        }];
+        self.navigationItem.leftBarButtonItem = closeButton;
+    }
+    
+    UIBarButtonItem *taskButton = [self barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
+        
+    }];
+    self.navigationItem.rightBarButtonItem = taskButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,4 +133,25 @@
      */
 }
 
+-(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
+    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:_color];
+    UIButton *toggleNoti = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width , image.size.height)];
+    [toggleNoti setImage:image forState:UIControlStateNormal];
+    [toggleNoti setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *weakSender = [[UIBarButtonItem alloc] initWithCustomView:toggleNoti];
+    [toggleNoti whenTapped:^{
+        handler(weakSender);
+    }];
+    return weakSender;
+}
+
++(instancetype)contentCreatorForIPhoneDevice{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone_DmContentCreator" bundle:nil];
+    return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
+}
+
+-(instancetype)instance{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone_DmContentCreator" bundle:nil];
+    return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
+}
 @end

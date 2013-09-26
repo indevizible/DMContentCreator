@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yS9-Aq-r5J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Ajb-Lb-90D">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Content Creator-->
+        <!--Content Creator - New Content-->
         <scene sceneID="EJQ-dc-xJT">
             <objects>
-                <tableViewController id="AFJ-mG-6pm" customClass="DMContentCreator" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CTCAT" id="AFJ-mG-6pm" customClass="DMContentCreator" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="wnQ-LJ-R5v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
                             <outlet property="delegate" destination="AFJ-mG-6pm" id="eq7-AJ-Erq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="wsy-KX-kqk"/>
+                    <navigationItem key="navigationItem" title="New Content" id="wsy-KX-kqk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2W-iN-KhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -88,6 +88,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZw-vs-3wm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="476" y="287"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="QB5-Fj-bdT">
+            <objects>
+                <viewController id="Ajb-Lb-90D" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lch-tY-lod"/>
+                        <viewControllerLayoutGuide type="bottom" id="HOQ-gx-2zu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yel-Wc-j2o">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvS-Lj-A6p">
+                                <rect key="frame" x="150" y="218" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="yS9-Aq-r5J" kind="modal" id="dJH-gu-Fur"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZlW-mr-mxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="500" y="1018"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

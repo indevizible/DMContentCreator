@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51BB394485E442649FEFEBAC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 061204E7C3B148C4A5DE49F4 /* libPods.a */; };
 		BBA2E67817E89428005ADEBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67717E89428005ADEBE /* UIKit.framework */; };
 		BBA2E67A17E89428005ADEBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67917E89428005ADEBE /* Foundation.framework */; };
 		BBA2E67C17E89428005ADEBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		061204E7C3B148C4A5DE49F4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EA7D560C97F42779CA4479F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BBA2E67417E89428005ADEBE /* DMContentCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMContentCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA2E67717E89428005ADEBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BBA2E67917E89428005ADEBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +75,7 @@
 				BBA2E67817E89428005ADEBE /* UIKit.framework in Frameworks */,
 				BBA2E67A17E89428005ADEBE /* Foundation.framework in Frameworks */,
 				BBA2E67C17E89428005ADEBE /* CoreGraphics.framework in Frameworks */,
+				51BB394485E442649FEFEBAC /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +99,7 @@
 				BBA2E69B17E89428005ADEBE /* DMContentCreatorTests */,
 				BBA2E67617E89428005ADEBE /* Frameworks */,
 				BBA2E67517E89428005ADEBE /* Products */,
+				4EA7D560C97F42779CA4479F /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +119,7 @@
 				BBA2E67917E89428005ADEBE /* Foundation.framework */,
 				BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */,
 				BBA2E69517E89428005ADEBE /* SenTestingKit.framework */,
+				061204E7C3B148C4A5DE49F4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,9 +195,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BBA2E6A617E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreator" */;
 			buildPhases = (
+				9C3893590C4B4A3694BA8FB9 /* Check Pods Manifest.lock */,
 				BBA2E67017E89428005ADEBE /* Sources */,
 				BBA2E67117E89428005ADEBE /* Frameworks */,
 				BBA2E67217E89428005ADEBE /* Resources */,
+				BCBDD0B1258744D6ABA218A9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -275,6 +283,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9C3893590C4B4A3694BA8FB9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		BBA2E69217E89428005ADEBE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,6 +310,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		BCBDD0B1258744D6ABA218A9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -399,6 +437,7 @@
 		};
 		BBA2E6A717E89428005ADEBE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EA7D560C97F42779CA4479F /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
@@ -410,6 +449,7 @@
 		};
 		BBA2E6A817E89428005ADEBE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EA7D560C97F42779CA4479F /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
@@ -472,6 +512,7 @@
 				BBA2E6A817E89428005ADEBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBA2E6A917E89428005ADEBE /* Build configuration list for PBXNativeTarget "DMContentCreatorTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +521,7 @@
 				BBA2E6AB17E89428005ADEBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
