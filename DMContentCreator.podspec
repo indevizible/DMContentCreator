@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'DMContentCreator/Classes/*.{h,m}'
 
-  s.resources = 'DMContentCreator/Resources/*.{storyboard,png}'
+  s.resources = 'DMContentCreator/Resources/*.{storyboard,png,bundle}'
   #s.exclude_files = 'Graphics/Default-568h@2x.png'
   s.requires_arc = true
   #s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore', 'ImageIO', 'MessageUI'

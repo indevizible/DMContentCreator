@@ -10,7 +10,9 @@
 #import <iOS7Colors/UIColor+iOS7Colors.h>
 #import <WTGlyphFontSet/WTGlyphFontSet.h>
 #import <BlocksKit/BlocksKit.h>
-@interface DMContentCreator ()
+@interface DMContentCreator (){
+    NSString *resourcesBundle;
+}
 
 @end
 
@@ -28,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    resourcesBundle = @"DMContentCreator.bundle";
     if (!_color) {
         [self setColor:[UIColor iOS7darkBlueColor]];
     }
@@ -74,7 +76,8 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"item-background-gray.png"]];
+    UIImage *image = [UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"item-background-gray.png"]];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
     [cell setBackgroundView:backgroundView];
     // Configure the cell...
     

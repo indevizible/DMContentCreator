@@ -24,9 +24,8 @@
 		BBA2E6A317E89428005ADEBE /* DMContentCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */; };
 		BBA2E6B117E895E8005ADEBE /* DMContentCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */; };
 		BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */; };
-		BBA2E6B617E89973005ADEBE /* item-background-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B417E89973005ADEBE /* item-background-gray.png */; };
-		BBA2E6B717E89973005ADEBE /* item-background-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */; };
 		BBA53B9A17F4390F00FFE025 /* DMContentCreator.podspec in Resources */ = {isa = PBXBuildFile; fileRef = BBA53B9917F4390F00FFE025 /* DMContentCreator.podspec */; };
+		BBA53BE017F44AAA00FFE025 /* DMContentCreator.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +63,8 @@
 		BBA2E6AF17E895E8005ADEBE /* DMContentCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMContentCreator.h; sourceTree = "<group>"; };
 		BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMContentCreator.m; sourceTree = "<group>"; };
 		BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "iPhone-DMContentCreator.storyboard"; sourceTree = "<group>"; };
-		BBA2E6B417E89973005ADEBE /* item-background-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-background-gray.png"; sourceTree = "<group>"; };
-		BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-background-gray@2x.png"; sourceTree = "<group>"; };
 		BBA53B9917F4390F00FFE025 /* DMContentCreator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DMContentCreator.podspec; sourceTree = "<group>"; };
+		BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DMContentCreator.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,8 +182,7 @@
 		BBA2E6AE17E8947E005ADEBE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BBA2E6B417E89973005ADEBE /* item-background-gray.png */,
-				BBA2E6B517E89973005ADEBE /* item-background-gray@2x.png */,
+				BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */,
 				BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */,
 			);
 			path = Resources;
@@ -271,8 +268,7 @@
 				BBA2E68C17E89428005ADEBE /* Default@2x.png in Resources */,
 				BBA2E68E17E89428005ADEBE /* Default-568h@2x.png in Resources */,
 				BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */,
-				BBA2E6B617E89973005ADEBE /* item-background-gray.png in Resources */,
-				BBA2E6B717E89973005ADEBE /* item-background-gray@2x.png in Resources */,
+				BBA53BE017F44AAA00FFE025 /* DMContentCreator.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
