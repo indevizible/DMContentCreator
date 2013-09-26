@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage = 'http://www.infostant.com/'
   s.author   = { 'Nattawut Singhchai' => 'wut@2bsimple.com' }
 
-  s.source   = { :git => 'git@github.com:indevizible/DMContentCreator.git', :tag => '0.0.1' }
+  s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git', :tag => '0.0.1' }
 
   s.platform = :ios
 
