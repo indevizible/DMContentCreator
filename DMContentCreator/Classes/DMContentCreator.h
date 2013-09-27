@@ -17,4 +17,5 @@ typedef void(^successBlock)(id productid);
 @property (nonatomic,strong) UIColor *color;
 
 +(instancetype)contentCreatorForIPhoneDevice;
+
 @end

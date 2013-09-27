@@ -10,8 +10,13 @@
 #import <iOS7Colors/UIColor+iOS7Colors.h>
 #import <WTGlyphFontSet/WTGlyphFontSet.h>
 #import <BlocksKit/BlocksKit.h>
-@interface DMContentCreator (){
+#import <RNGridMenu/RNGridMenu.h>
+#import "DMContentPlugins.h"
+#import "DMContentCreatorCell.h"
+@interface DMContentCreator ()<RNGridMenuDelegate>{
     NSString *resourcesBundle;
+    
+    NSMutableArray *dataSource;
 }
 
 @end
@@ -31,9 +36,22 @@
 {
     [super viewDidLoad];
     resourcesBundle = @"DMContentCreator.bundle";
+    
+#warning mocked up data
+    _defaultPlugins = @[];
+    _avaliablePlugins = @[];
+    
+#warning end mocked up data
+    
+    dataSource = [NSMutableArray new];
     if (!_color) {
-        [self setColor:[UIColor iOS7darkBlueColor]];
+        [self setColor:[UIColor iOS7orangeColor]];
     }
+    for (int i= 0; i<10; i++) {
+        [dataSource addObject:[DMContentPlugins pluginWithIdentifier:0 color:_color]];
+    }
+    
+    
     
     if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
         UIBarButtonItem *closeButton = [self barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
@@ -45,7 +63,7 @@
     }
     
     UIBarButtonItem *taskButton = [self barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
-        
+        [self showMenu];
     }];
     self.navigationItem.rightBarButtonItem = taskButton;
 }
@@ -69,16 +87,21 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 10;
+    return [dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    DMContentPlugins *plugin = dataSource[indexPath.row];
+    DMContentCreatorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     UIImage *image = [UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"item-background-gray.png"]];
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
+    [cell.pluginTitleLabel setTextColor:_color];
+    [cell.pluginTitleLabel setText:plugin.pluginName];
+    [cell.pluginDetailsLabel setTextColor:[UIColor iOS7lightGrayColor]];
     [cell setBackgroundView:backgroundView];
+    [cell.thumbnailView setImage:plugin.thumbnail];
+    
     // Configure the cell...
     
     return cell;
@@ -127,13 +150,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    DMContentPlugins *plugin = dataSource[indexPath.row];
+    [plugin setIsDataComplete:![plugin isDataComplete]];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 -(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
@@ -146,6 +165,22 @@
         handler(weakSender);
     }];
     return weakSender;
+}
+
+-(void)showMenu{
+    RNGridMenuItem *item = [[RNGridMenuItem alloc] initWithImage:[UIImage imageGlyphNamed:@"fontawesome##star" height:128 color:_color] title:@"Menu" action:^{
+        
+    }];
+    NSMutableArray *mar = [NSMutableArray new];
+    for (int i=0;i<9; i++) {
+        [mar addObject:item];
+    }
+    
+    RNGridMenu *gridMenu = [[RNGridMenu alloc] initWithItems:mar];
+    [gridMenu setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.8f]];
+    [gridMenu setItemTextColor:[UIColor iOS7darkGrayColor]];
+    [gridMenu setHighlightColor:[_color colorWithAlphaComponent:0.3]];
+    [gridMenu showInViewController:self center:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f)];
 }
 
 +(instancetype)contentCreatorForIPhoneDevice{
