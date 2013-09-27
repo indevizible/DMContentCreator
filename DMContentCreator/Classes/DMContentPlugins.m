@@ -10,7 +10,7 @@
 #import <iOS7Colors/UIColor+iOS7Colors.h>
 #import <WTGlyphFontSet/WTGlyphFontSet.h>
 @interface DMContentPlugins()
-@property (nonatomic,strong) UIColor *color;
+
 @end
 
 @implementation DMContentPlugins

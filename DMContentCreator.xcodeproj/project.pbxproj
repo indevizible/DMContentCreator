@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		51BB394485E442649FEFEBAC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 061204E7C3B148C4A5DE49F4 /* libPods.a */; };
+		BB8ECA6717F5A486009474C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB8ECA6617F5A486009474C6 /* Images.xcassets */; };
+		BB8FDEF817F52CB400C08571 /* DMContentCreatorExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8FDEF617F52CB400C08571 /* DMContentCreatorExampleViewController.m */; };
+		BB8FDEF917F52CB400C08571 /* DMContentCreatorExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB8FDEF717F52CB400C08571 /* DMContentCreatorExampleViewController.xib */; };
+		BB8FDEFD17F537CF00C08571 /* DMPluginContentInformationEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8FDEFC17F537CF00C08571 /* DMPluginContentInformationEditor.m */; };
+		BB8FDF3A17F53E6600C08571 /* iPhone-DMContentCreator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB8FDF3917F53E6600C08571 /* iPhone-DMContentCreator.storyboard */; };
 		BBA2E67817E89428005ADEBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67717E89428005ADEBE /* UIKit.framework */; };
 		BBA2E67A17E89428005ADEBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67917E89428005ADEBE /* Foundation.framework */; };
 		BBA2E67C17E89428005ADEBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA2E67B17E89428005ADEBE /* CoreGraphics.framework */; };
@@ -23,7 +28,6 @@
 		BBA2E6A017E89428005ADEBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E69E17E89428005ADEBE /* InfoPlist.strings */; };
 		BBA2E6A317E89428005ADEBE /* DMContentCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */; };
 		BBA2E6B117E895E8005ADEBE /* DMContentCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */; };
-		BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */; };
 		BBA53B9A17F4390F00FFE025 /* DMContentCreator.podspec in Resources */ = {isa = PBXBuildFile; fileRef = BBA53B9917F4390F00FFE025 /* DMContentCreator.podspec */; };
 		BBA53BE017F44AAA00FFE025 /* DMContentCreator.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */; };
 		BBA53BE317F4536A00FFE025 /* DMContentPlugins.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA53BE217F4536A00FFE025 /* DMContentPlugins.m */; };
@@ -43,6 +47,13 @@
 /* Begin PBXFileReference section */
 		061204E7C3B148C4A5DE49F4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA7D560C97F42779CA4479F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		BB8ECA6617F5A486009474C6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BB8FDEF517F52CB400C08571 /* DMContentCreatorExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMContentCreatorExampleViewController.h; sourceTree = "<group>"; };
+		BB8FDEF617F52CB400C08571 /* DMContentCreatorExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMContentCreatorExampleViewController.m; sourceTree = "<group>"; };
+		BB8FDEF717F52CB400C08571 /* DMContentCreatorExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMContentCreatorExampleViewController.xib; sourceTree = "<group>"; };
+		BB8FDEFB17F537CF00C08571 /* DMPluginContentInformationEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPluginContentInformationEditor.h; sourceTree = "<group>"; };
+		BB8FDEFC17F537CF00C08571 /* DMPluginContentInformationEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPluginContentInformationEditor.m; sourceTree = "<group>"; };
+		BB8FDF3917F53E6600C08571 /* iPhone-DMContentCreator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "iPhone-DMContentCreator.storyboard"; sourceTree = "<group>"; };
 		BBA2E67417E89428005ADEBE /* DMContentCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMContentCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA2E67717E89428005ADEBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BBA2E67917E89428005ADEBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,7 +75,6 @@
 		BBA2E6A217E89428005ADEBE /* DMContentCreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMContentCreatorTests.m; sourceTree = "<group>"; };
 		BBA2E6AF17E895E8005ADEBE /* DMContentCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMContentCreator.h; sourceTree = "<group>"; };
 		BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMContentCreator.m; sourceTree = "<group>"; };
-		BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "iPhone-DMContentCreator.storyboard"; sourceTree = "<group>"; };
 		BBA53B9917F4390F00FFE025 /* DMContentCreator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DMContentCreator.podspec; sourceTree = "<group>"; };
 		BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DMContentCreator.bundle; sourceTree = "<group>"; };
 		BBA53BE117F4536A00FFE025 /* DMContentPlugins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMContentPlugins.h; sourceTree = "<group>"; };
@@ -98,9 +108,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB8FDEF417F52C8500C08571 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				BB8FDEF517F52CB400C08571 /* DMContentCreatorExampleViewController.h */,
+				BB8FDEF617F52CB400C08571 /* DMContentCreatorExampleViewController.m */,
+				BB8FDEF717F52CB400C08571 /* DMContentCreatorExampleViewController.xib */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		BB8FDEFA17F5376A00C08571 /* PluginsClasses */ = {
+			isa = PBXGroup;
+			children = (
+				BB8FDEFB17F537CF00C08571 /* DMPluginContentInformationEditor.h */,
+				BB8FDEFC17F537CF00C08571 /* DMPluginContentInformationEditor.m */,
+			);
+			path = PluginsClasses;
+			sourceTree = "<group>";
+		};
 		BBA2E66B17E89428005ADEBE = {
 			isa = PBXGroup;
 			children = (
+				BB8FDEF417F52C8500C08571 /* Example */,
 				BBA53B9917F4390F00FFE025 /* DMContentCreator.podspec */,
 				BBA2E67D17E89428005ADEBE /* DMContentCreator */,
 				BBA2E69B17E89428005ADEBE /* DMContentCreatorTests */,
@@ -138,6 +168,7 @@
 				BBA2E6AC17E8944E005ADEBE /* Classes */,
 				BBA2E68617E89428005ADEBE /* DMAppDelegate.h */,
 				BBA2E68717E89428005ADEBE /* DMAppDelegate.m */,
+				BB8ECA6617F5A486009474C6 /* Images.xcassets */,
 				BBA2E67E17E89428005ADEBE /* Supporting Files */,
 			);
 			path = DMContentCreator;
@@ -179,6 +210,7 @@
 		BBA2E6AC17E8944E005ADEBE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BB8FDEFA17F5376A00C08571 /* PluginsClasses */,
 				BBA2E6AF17E895E8005ADEBE /* DMContentCreator.h */,
 				BBA2E6B017E895E8005ADEBE /* DMContentCreator.m */,
 				BBA53BE117F4536A00FFE025 /* DMContentPlugins.h */,
@@ -192,8 +224,8 @@
 		BBA2E6AE17E8947E005ADEBE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB8FDF3917F53E6600C08571 /* iPhone-DMContentCreator.storyboard */,
 				BBA53BDF17F44AAA00FFE025 /* DMContentCreator.bundle */,
-				BBA2E6B217E8964E005ADEBE /* iPhone-DMContentCreator.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -272,12 +304,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB8ECA6717F5A486009474C6 /* Images.xcassets in Resources */,
 				BBA53B9A17F4390F00FFE025 /* DMContentCreator.podspec in Resources */,
+				BB8FDF3A17F53E6600C08571 /* iPhone-DMContentCreator.storyboard in Resources */,
+				BB8FDEF917F52CB400C08571 /* DMContentCreatorExampleViewController.xib in Resources */,
 				BBA2E68217E89428005ADEBE /* InfoPlist.strings in Resources */,
 				BBA2E68A17E89428005ADEBE /* Default.png in Resources */,
 				BBA2E68C17E89428005ADEBE /* Default@2x.png in Resources */,
 				BBA2E68E17E89428005ADEBE /* Default-568h@2x.png in Resources */,
-				BBA2E6B317E8964E005ADEBE /* iPhone-DMContentCreator.storyboard in Resources */,
 				BBA53BE017F44AAA00FFE025 /* DMContentCreator.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,8 +378,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA2E68417E89428005ADEBE /* main.m in Sources */,
+				BB8FDEF817F52CB400C08571 /* DMContentCreatorExampleViewController.m in Sources */,
 				BBA2E68817E89428005ADEBE /* DMAppDelegate.m in Sources */,
 				BBA53BE617F45BC900FFE025 /* DMContentCreatorCell.m in Sources */,
+				BB8FDEFD17F537CF00C08571 /* DMPluginContentInformationEditor.m in Sources */,
 				BBA2E6B117E895E8005ADEBE /* DMContentCreator.m in Sources */,
 				BBA53BE317F4536A00FFE025 /* DMContentPlugins.m in Sources */,
 			);
@@ -451,6 +487,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4EA7D560C97F42779CA4479F /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
 				INFOPLIST_FILE = "DMContentCreator/DMContentCreator-Info.plist";
@@ -463,6 +501,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4EA7D560C97F42779CA4479F /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DMContentCreator/DMContentCreator-Prefix.pch";
 				INFOPLIST_FILE = "DMContentCreator/DMContentCreator-Info.plist";

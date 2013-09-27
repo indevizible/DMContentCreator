@@ -13,6 +13,6 @@
 @property (nonatomic,strong) NSString *pluginName;
 @property (nonatomic,assign) BOOL isStaticPlugin,isDataComplete;
 @property (nonatomic,strong) UIImage *thumbnail;
-
+@property (nonatomic,strong) UIColor *color;
 +(instancetype)pluginWithIdentifier:(NSUInteger)pluginIdentifier color:(UIColor *)color;
 @end

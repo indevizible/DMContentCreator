@@ -7,15 +7,17 @@
 //
 
 #import "DMAppDelegate.h"
-
+#import "DMContentCreatorExampleViewController.h"
 @implementation DMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    // Override point for customization after application launch.
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    DMContentCreatorExampleViewController *mainView = [DMContentCreatorExampleViewController new];
+    [self.window setRootViewController:mainView];
     return YES;
 }
 

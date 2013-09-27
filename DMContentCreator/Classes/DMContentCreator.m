@@ -13,10 +13,14 @@
 #import <RNGridMenu/RNGridMenu.h>
 #import "DMContentPlugins.h"
 #import "DMContentCreatorCell.h"
+#import <LAUtilitiesStaticLib/LAUtilitiesStaticLib.h>
+
 @interface DMContentCreator ()<RNGridMenuDelegate>{
     NSString *resourcesBundle;
-    
+    Class navigationClass;
     NSMutableArray *dataSource;
+    UIStoryboard *mainStoryboard;
+
 }
 
 @end
@@ -36,27 +40,41 @@
 {
     [super viewDidLoad];
     resourcesBundle = @"DMContentCreator.bundle";
+    [[DMContentCreator sharedComponents] setResourceBundle:resourcesBundle];
+    if (self.navigationController) {
+        navigationClass = [self.navigationController class];
+    }
+    
+    [[DMContentCreator sharedComponents] setColor:_color];
+    [[DMContentCreator sharedComponents] setThemeColor:(_themeMode == DMContentCreatorBackgroundModeDark ? [UIColor blackColor] : [UIColor whiteColor])];
+    [[DMContentCreator sharedComponents] setInvertedNavigation:_invertedNavigation];
+    [[DMContentCreator sharedComponents] setThemeMode:_themeMode];
+    [DMContentCreator setNavigationBarStyle:self.navigationController];
+   
+    
+    [self.tableView setBackgroundColor:[[DMContentCreator sharedComponents] themeColor]];
+
     
 #warning mocked up data
     _defaultPlugins = @[];
     _avaliablePlugins = @[];
     
-#warning end mocked up data
-    
     dataSource = [NSMutableArray new];
-    if (!_color) {
-        [self setColor:[UIColor iOS7orangeColor]];
-    }
+    
+    
     for (int i= 0; i<10; i++) {
         [dataSource addObject:[DMContentPlugins pluginWithIdentifier:0 color:_color]];
     }
     
     
     
+#warning end mocked up data
+    
+   
     if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
         UIBarButtonItem *closeButton = [self barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
             [self dismissViewControllerAnimated:YES completion:^{
-                NSLog(@"CLOSE");
+                
             }];
         }];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -66,6 +84,7 @@
         [self showMenu];
     }];
     self.navigationItem.rightBarButtonItem = taskButton;
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,56 +126,22 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     DMContentPlugins *plugin = dataSource[indexPath.row];
     [plugin setIsDataComplete:![plugin isDataComplete]];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    UIViewController *editView = [self.storyboard instantiateViewControllerWithIdentifier:@"DMEPLG00"];
+    UINavigationController *nav = [[[navigationClass class] alloc] initWithRootViewController:editView];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
-    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:_color];
+    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:(_invertedNavigation ? _color : [[DMContentCreator sharedComponents] themeColor])];
     UIButton *toggleNoti = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width , image.size.height)];
     [toggleNoti setImage:image forState:UIControlStateNormal];
     [toggleNoti setShowsTouchWhenHighlighted:YES];
@@ -168,28 +153,59 @@
 }
 
 -(void)showMenu{
-    RNGridMenuItem *item = [[RNGridMenuItem alloc] initWithImage:[UIImage imageGlyphNamed:@"fontawesome##star" height:128 color:_color] title:@"Menu" action:^{
-        
+    RNGridMenuItem *item = [[RNGridMenuItem alloc] initWithImage:[UIImage imageGlyphNamed:@"fontawesome##star" height:100 color: _color] title:@"LightContent" action:^{
+         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    
+    RNGridMenuItem *itemdar = [[RNGridMenuItem alloc] initWithImage:[UIImage imageGlyphNamed:@"fontawesome##star" height:100 color: _color] title:@"Default" action:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     }];
     NSMutableArray *mar = [NSMutableArray new];
     for (int i=0;i<9; i++) {
-        [mar addObject:item];
+        [mar addObject:(i%2? item : itemdar)];
     }
     
     RNGridMenu *gridMenu = [[RNGridMenu alloc] initWithItems:mar];
     [gridMenu setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.8f]];
     [gridMenu setItemTextColor:[UIColor iOS7darkGrayColor]];
-    [gridMenu setHighlightColor:[_color colorWithAlphaComponent:0.3]];
+    [gridMenu setHighlightColor:[_color colorWithAlphaComponent:0.1]];
     [gridMenu showInViewController:self center:CGPointMake(self.view.frame.size.width/2.0f, self.view.frame.size.height/2.0f)];
 }
 
 +(instancetype)contentCreatorForIPhoneDevice{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:[NSBundle mainBundle]];
     return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
 }
 
--(instancetype)instance{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:nil];
-    return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
++(DMContentCreatorCoponents *)sharedComponents{
+    static dispatch_once_t onceToken;
+    static DMContentCreatorCoponents *sharedComponents = nil;
+    dispatch_once(&onceToken, ^{
+        sharedComponents = [DMContentCreatorCoponents new];
+        sharedComponents.color = [UIColor iOS7lightBlueColor];
+        sharedComponents.navigationClass = [UINavigationController class];
+    });
+    return sharedComponents;
 }
+
++(void)setNavigationBarStyle:(UINavigationController *)nav{
+     nav.navigationBar.titleTextAttributes = @{UITextAttributeTextColor : ([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]),UITextAttributeTextShadowColor:[UIColor clearColor]};
+    
+if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
+    nav.navigationBar.translucent = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeLight);
+    BOOL isDarkMode = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeDark);
+    [[UIApplication sharedApplication] setStatusBarStyle:(([[DMContentCreator sharedComponents] invertedNavigation] && isDarkMode)||(!([[DMContentCreator sharedComponents] invertedNavigation] || isDarkMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault)];
+    nav.navigationBar.barTintColor = [[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] themeColor] : [[DMContentCreator sharedComponents] color];
+
+}else{
+    UIImage *image = [UIImage imageFromColor:([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] themeColor] : [[DMContentCreator sharedComponents] color]) frame:nav.navigationBar.bounds];
+    [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    
+
+}
+    
+}
+@end
+
+@implementation DMContentCreatorCoponents
 @end
