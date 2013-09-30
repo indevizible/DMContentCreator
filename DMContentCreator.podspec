@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios
 
-  s.source_files = 'DMContentCreator/Classes/*.{h,m}'
+  s.source_files = 'DMContentCreator/Classes/*.{h,m}','DMContentCreator/Classes/**/*.{h,m}'
 
   s.resources = 'DMContentCreator/Resources/*.{storyboard,png,bundle}'
   #s.exclude_files = 'Graphics/Default-568h@2x.png'
