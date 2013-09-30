@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'DMContentCreator'
-  s.version  = '0.0.1'
+  s.version  = '0.0.2'
   s.license  = 'Beerware' 
   s.summary  = 'Content creator plugin for DMConnex plugin'
   s.homepage = 'http://www.infostant.com/'
