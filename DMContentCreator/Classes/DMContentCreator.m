@@ -20,7 +20,8 @@
     Class navigationClass;
     NSMutableArray *dataSource;
     UIStoryboard *mainStoryboard;
-
+    UIStatusBarStyle backupStatusBarStyle;
+    UIColor *backupWindowsTintColor;
 }
 
 @end
@@ -72,19 +73,24 @@
     
    
     if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
-        UIBarButtonItem *closeButton = [self barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
+        UIBarButtonItem *closeButton = [DMContentCreator barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
             [self dismissViewControllerAnimated:YES completion:^{
-                
+                [self restoreValue];
             }];
         }];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
-    UIBarButtonItem *taskButton = [self barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
+    UIBarButtonItem *taskButton = [DMContentCreator barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
         [self showMenu];
     }];
     self.navigationItem.rightBarButtonItem = taskButton;
    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self updateStatusBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,8 +146,8 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
--(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
-    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:(_invertedNavigation ? _color : [[DMContentCreator sharedComponents] themeColor])];
++(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
+    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color] : [[DMContentCreator sharedComponents] themeColor])];
     UIButton *toggleNoti = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width , image.size.height)];
     [toggleNoti setImage:image forState:UIControlStateNormal];
     [toggleNoti setShowsTouchWhenHighlighted:YES];
@@ -193,8 +199,6 @@
     
 if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
     nav.navigationBar.translucent = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeLight);
-    BOOL isDarkMode = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeDark);
-    [[UIApplication sharedApplication] setStatusBarStyle:(([[DMContentCreator sharedComponents] invertedNavigation] && isDarkMode)||(!([[DMContentCreator sharedComponents] invertedNavigation] || isDarkMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault)];
     nav.navigationBar.barTintColor = [[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] themeColor] : [[DMContentCreator sharedComponents] color];
 
 }else{
@@ -204,6 +208,20 @@ if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
 
 }
     
+}
+
+-(void)updateStatusBar{
+    backupStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+    backupWindowsTintColor = [self.view.window tintColor];
+    BOOL isDarkMode = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeDark);
+    [[UIApplication sharedApplication] setStatusBarStyle:(([[DMContentCreator sharedComponents] invertedNavigation] && isDarkMode)||(!([[DMContentCreator sharedComponents] invertedNavigation] || isDarkMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) animated:YES];
+    [self.view.window setTintColor:[[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]];
+    
+}
+
+-(void)restoreValue{
+    [[UIApplication sharedApplication] setStatusBarStyle:backupStatusBarStyle animated:YES];
+    [self.view.window setTintColor:backupWindowsTintColor];
 }
 @end
 

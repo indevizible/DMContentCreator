@@ -33,9 +33,10 @@ typedef void(^successBlock)(id productid);
 @property (nonatomic,strong) UIColor *color ;
 @property (nonatomic,assign) BOOL invertedNavigation;
 @property (nonatomic,assign) DMContentCreatorBackgroundMode themeMode;
-
 +(instancetype)contentCreatorForIPhoneDevice;
 +(DMContentCreatorCoponents *)sharedComponents;
+
++(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler;
 +(void)setNavigationBarStyle:(UINavigationController *)nav;
 @end
 
