@@ -19,10 +19,14 @@ typedef enum ScrollDirection {
     ScrollDirectionDown,
     ScrollDirectionCrazy,
 } ScrollDirection;
-@interface DMPluginContentInformationEditor (){
+@interface DMPluginContentInformationEditor ()<UITextFieldDelegate>{
     ScrollDirection scrollDirection;
+    BOOL isDismissing,isEdited;
 }
+@property (weak, nonatomic) IBOutlet UIView *codeSection;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImage;
+@property (weak, nonatomic) IBOutlet UILabel *systemTagLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userTagLabel;
 @property (nonatomic, assign) NSInteger lastContentOffset;
 @end
 
@@ -45,16 +49,19 @@ typedef enum ScrollDirection {
     if (!_plugins) {
         _plugins = [DMContentPlugins pluginWithIdentifier:0 color:[UIColor iOS7lightBlueColor]];
     }
+    [self setTitle:_plugins.pluginName];
+    [_userTagLabel setTextColor:[[DMContentCreator sharedComponents] color]];
+    [_systemTagLabel setTextColor:[[DMContentCreator sharedComponents] color]];
     [DMContentCreator setNavigationBarStyle:self.navigationController];
     UIImage *image = [UIImage imageGlyphNamed:@"fontawesome##picture" height:100.0 color:[UIColor iOS7lightGrayColor]];
     [_thumbnailImage setImage:image];
     
-    UIBarButtonItem *closeButton = [self barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
+    UIBarButtonItem *closeButton = [DMContentCreator barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     self.navigationItem.leftBarButtonItem = closeButton;
     
-    UIBarButtonItem *saveButton = [self barButtonItemName:@"fontawesome##ok-sign" handler:^(id sender){
+    UIBarButtonItem *saveButton = [DMContentCreator barButtonItemName:@"fontawesome##ok-sign" handler:^(id sender){
         
     }];
     self.navigationItem.rightBarButtonItem = saveButton;
@@ -69,41 +76,30 @@ typedef enum ScrollDirection {
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
-    
-    if (self.lastContentOffset > self.tableView.contentOffset.y)
-        scrollDirection = ScrollDirectionDown;
-    else
-        scrollDirection = ScrollDirectionUp;
-
-    
-    self.lastContentOffset = self.tableView.contentOffset.y;
-    
-    // do whatever you need to with scrollDirection here.
-    
+    if (sender.contentOffset.y < -170.0f && !isDismissing) {
+        isDismissing = YES;
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 4;
+}
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    NSLog(@"v : %@",NSStringFromCGPoint(velocity));
     if (fabs(velocity.y)>0.70f) {
         [self.view endEditing:YES];
     }
 }
 
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
-    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:_plugins.color];
-    UIButton *toggleNoti = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width , image.size.height)];
-    [toggleNoti setImage:image forState:UIControlStateNormal];
-    [toggleNoti setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *weakSender = [[UIBarButtonItem alloc] initWithCustomView:toggleNoti];
-    [toggleNoti whenTapped:^{
-        handler(weakSender);
-    }];
-    return weakSender;
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSLog(@"change : %@",string);
+    return YES;
 }
-
 @end
