@@ -23,7 +23,6 @@ typedef enum ScrollDirection {
     ScrollDirection scrollDirection;
     BOOL isDismissing,isEdited;
 }
-@property (weak, nonatomic) IBOutlet UIView *codeSection;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImage;
 @property (weak, nonatomic) IBOutlet UILabel *systemTagLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userTagLabel;

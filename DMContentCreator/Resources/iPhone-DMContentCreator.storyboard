@@ -148,7 +148,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="PLUG-0" id="cUX-0h-lw4"/>
                     <connections>
-                        <outlet property="codeSection" destination="ipT-7o-R7o" id="nZk-Yg-Rwx"/>
                         <outlet property="systemTagLabel" destination="h6K-Eh-dsO" id="sjr-mk-Mje"/>
                         <outlet property="thumbnailImage" destination="51x-tw-kLS" id="axi-Ru-giQ"/>
                         <outlet property="userTagLabel" destination="mdu-93-oNC" id="lJa-ck-w69"/>
