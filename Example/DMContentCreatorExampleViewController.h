@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DMContentCreatorExampleViewController : UIViewController
-
+@property (nonatomic,strong)  UIColor *color;
 @end

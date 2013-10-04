@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DMContentPlugins.h"
 
-@interface DMPluginContentInformationEditor : UITableViewController
+@interface DMPluginContentInformationEditor : UITableViewController<DMContentPluginProtocol>
 @property (nonatomic,strong) DMContentPlugins *plugins;
+
 @end

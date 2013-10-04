@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DMContentPlugins.h"
 typedef  enum {
     DMContentCreatorBackgroundModeLight,
     DMContentCreatorBackgroundModeDark,
@@ -15,13 +16,14 @@ typedef  enum {
 
 typedef void(^successBlock)(id productid);
 
-@interface DMContentCreatorCoponents : NSObject
+@interface DMContentCreatorComponents : NSObject
 @property (nonatomic,strong) UIColor *color , *themeColor;
 @property (nonatomic,assign) Class navigationClass;
 @property (nonatomic,strong) UIStoryboard *storyboard;
 @property (nonatomic,strong) NSString *resourceBundle;
 @property (nonatomic,assign) DMContentCreatorBackgroundMode themeMode;
 @property (nonatomic,assign) BOOL invertedNavigation;
+@property (nonatomic,strong) NSArray *tagsList;
 @end
 
 
@@ -33,10 +35,10 @@ typedef void(^successBlock)(id productid);
 @property (nonatomic,strong) UIColor *color ;
 @property (nonatomic,assign) BOOL invertedNavigation;
 @property (nonatomic,assign) DMContentCreatorBackgroundMode themeMode;
+@property (nonatomic,weak) NSArray *tagsList;
 +(instancetype)contentCreatorForIPhoneDevice;
-+(DMContentCreatorCoponents *)sharedComponents;
++(DMContentCreatorComponents *)sharedComponents;
 
-+(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler;
-+(void)setNavigationBarStyle:(UINavigationController *)nav;
++(UIImage *)backImage;
 @end
 

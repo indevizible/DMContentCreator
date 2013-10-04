@@ -8,6 +8,7 @@
 
 #import "DMAppDelegate.h"
 #import "DMContentCreatorExampleViewController.h"
+#import "DMExampleViewController.h"
 @implementation DMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,8 +17,10 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    DMContentCreatorExampleViewController *mainView = [DMContentCreatorExampleViewController new];
-    [self.window setRootViewController:mainView];
+
+    DMExampleViewController *mainView = [DMExampleViewController new];
+    [mainView setTitle:@"Select color"];
+    [self.window setRootViewController:[[UINavigationController alloc] initWithRootViewController:mainView]];
     return YES;
 }
 

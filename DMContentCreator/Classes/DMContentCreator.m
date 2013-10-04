@@ -14,6 +14,8 @@
 #import "DMContentPlugins.h"
 #import "DMContentCreatorCell.h"
 #import <LAUtilitiesStaticLib/LAUtilitiesStaticLib.h>
+#import "DMPluginContentInformationEditor.h"
+#import "DMContentCreatorStyle.h"
 
 @interface DMContentCreator ()<RNGridMenuDelegate>{
     NSString *resourcesBundle;
@@ -21,7 +23,7 @@
     NSMutableArray *dataSource;
     UIStoryboard *mainStoryboard;
     UIStatusBarStyle backupStatusBarStyle;
-    UIColor *backupWindowsTintColor;
+//    UIColor *backupWindowsTintColor;
 }
 
 @end
@@ -50,47 +52,50 @@
     [[DMContentCreator sharedComponents] setThemeColor:(_themeMode == DMContentCreatorBackgroundModeDark ? [UIColor blackColor] : [UIColor whiteColor])];
     [[DMContentCreator sharedComponents] setInvertedNavigation:_invertedNavigation];
     [[DMContentCreator sharedComponents] setThemeMode:_themeMode];
-    [DMContentCreator setNavigationBarStyle:self.navigationController];
-   
+    [DMContentCreatorStyle setNavigationBarStyle:self.navigationController];
+    [[DMContentCreator sharedComponents] setTagsList:self.tagsList];
     
     [self.tableView setBackgroundColor:[[DMContentCreator sharedComponents] themeColor]];
 
     
 #warning mocked up data
-    _defaultPlugins = @[];
+    _defaultPlugins = @[@0,@1,@3,@4,@5,@6,@7,@8,@10,@11,@13,@14];
     _avaliablePlugins = @[];
     
     dataSource = [NSMutableArray new];
     
     
-    for (int i= 0; i<10; i++) {
-        [dataSource addObject:[DMContentPlugins pluginWithIdentifier:0 color:_color]];
+    for (int i= 0; i< [_defaultPlugins count]; i++) {
+        [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[_defaultPlugins[i] unsignedIntegerValue] color:_color]];
     }
     
-    
-    
 #warning end mocked up data
-    
    
     if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
-        UIBarButtonItem *closeButton = [DMContentCreator barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
+        UIBarButtonItem *closeButton = [DMContentCreatorStyle barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
+             [self restoreValue];
             [self dismissViewControllerAnimated:YES completion:^{
-                [self restoreValue];
+               
             }];
         }];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
-    UIBarButtonItem *taskButton = [DMContentCreator barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
+    UIBarButtonItem *taskButton = [DMContentCreatorStyle barButtonItemName:@"fontawesome##tasks" handler:^(id sender){
         [self showMenu];
     }];
     self.navigationItem.rightBarButtonItem = taskButton;
-   
+   self.navigationController.navigationBar.translucent = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateStatusBar];
+    
+    self.navigationController.navigationBar.translucent = YES;
+    [DMContentCreatorStyle setNavigationBarStyle:self.navigationController];
+    [self.navigationController.navigationBar setTintColor:[UIColor redColor]];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -122,7 +127,13 @@
     UIImage *image = [UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"item-background-gray.png"]];
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
     [cell.pluginTitleLabel setTextColor:_color];
-    [cell.pluginTitleLabel setText:plugin.pluginName];
+    NSString *storyboardIdentifier =[NSString stringWithFormat:@"DMEPLG%02u",plugin.pluginIdentifier.unsignedIntegerValue];
+    if ([self storyboardName:@"iPhone-DMContentCreator" hasStoryboardIdentifier:storyboardIdentifier]) {
+        [cell.pluginTitleLabel setText:plugin.pluginName];
+    }else{
+        [cell.pluginTitleLabel setText:NSLocalizedString(@"DMCUNDEFINEDPLUGIN", @"Undefined plugin")];
+    }
+    
     [cell.pluginDetailsLabel setTextColor:[UIColor iOS7lightGrayColor]];
     [cell setBackgroundView:backgroundView];
     [cell.thumbnailView setImage:plugin.thumbnail];
@@ -136,26 +147,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     DMContentPlugins *plugin = dataSource[indexPath.row];
-    [plugin setIsDataComplete:![plugin isDataComplete]];
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    UIViewController *editView = [self.storyboard instantiateViewControllerWithIdentifier:@"DMEPLG00"];
-    UINavigationController *nav = [[[navigationClass class] alloc] initWithRootViewController:editView];
-    [self presentViewController:nav animated:YES completion:nil];
-}
+    NSString *storyboardIdentifier =[NSString stringWithFormat:@"DMEPLG%02u",plugin.pluginIdentifier.unsignedIntegerValue];
+    if ([self storyboardName:@"iPhone-DMContentCreator" hasStoryboardIdentifier:storyboardIdentifier]) {
+        UIViewController<DMContentPluginProtocol> *editView = [self.storyboard instantiateViewControllerWithIdentifier:storyboardIdentifier];
+        [editView setPlugins:plugin];
+        UINavigationController *nav = [[[navigationClass class] alloc] initWithRootViewController:editView];
+        [self presentViewController:nav animated:YES completion:nil];
 
-+(UIBarButtonItem *)barButtonItemName:(NSString *)name handler:(void (^)( UIBarButtonItem *weakSender))handler{
-    UIImage *image =[UIImage imageGlyphNamed:name size:CGSizeMake(25, 25) color:([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color] : [[DMContentCreator sharedComponents] themeColor])];
-    UIButton *toggleNoti = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width , image.size.height)];
-    [toggleNoti setImage:image forState:UIControlStateNormal];
-    [toggleNoti setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *weakSender = [[UIBarButtonItem alloc] initWithCustomView:toggleNoti];
-    [toggleNoti whenTapped:^{
-        handler(weakSender);
-    }];
-    return weakSender;
+    }
 }
 
 -(void)showMenu{
@@ -183,47 +183,49 @@
     return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
 }
 
-+(DMContentCreatorCoponents *)sharedComponents{
++(DMContentCreatorComponents *)sharedComponents{
     static dispatch_once_t onceToken;
-    static DMContentCreatorCoponents *sharedComponents = nil;
+    static DMContentCreatorComponents *sharedComponents = nil;
     dispatch_once(&onceToken, ^{
-        sharedComponents = [DMContentCreatorCoponents new];
+        sharedComponents = [DMContentCreatorComponents new];
         sharedComponents.color = [UIColor iOS7lightBlueColor];
         sharedComponents.navigationClass = [UINavigationController class];
     });
     return sharedComponents;
 }
 
-+(void)setNavigationBarStyle:(UINavigationController *)nav{
-     nav.navigationBar.titleTextAttributes = @{UITextAttributeTextColor : ([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]),UITextAttributeTextShadowColor:[UIColor clearColor]};
-    
-if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
-    nav.navigationBar.translucent = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeLight);
-    nav.navigationBar.barTintColor = [[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] themeColor] : [[DMContentCreator sharedComponents] color];
 
-}else{
-    UIImage *image = [UIImage imageFromColor:([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] themeColor] : [[DMContentCreator sharedComponents] color]) frame:nav.navigationBar.bounds];
-    [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    
-
-}
-    
-}
 
 -(void)updateStatusBar{
     backupStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-    backupWindowsTintColor = [self.view.window tintColor];
+//    backupWindowsTintColor = [self.view.window tintColor];
     BOOL isDarkMode = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeDark);
     [[UIApplication sharedApplication] setStatusBarStyle:(([[DMContentCreator sharedComponents] invertedNavigation] && isDarkMode)||(!([[DMContentCreator sharedComponents] invertedNavigation] || isDarkMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) animated:YES];
-    [self.view.window setTintColor:[[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]];
+//    [self.view.window setTintColor:[[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]];
     
 }
 
 -(void)restoreValue{
     [[UIApplication sharedApplication] setStatusBarStyle:backupStatusBarStyle animated:YES];
-    [self.view.window setTintColor:backupWindowsTintColor];
+//    [self.view.window setTintColor:backupWindowsTintColor];
+}
+
+
++(UIImage *)backImage{
+    return [UIImage imageGlyphNamed:@"fontawesome#angle-left" size:CGSizeMake(25, 25) color:([[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color] : [[DMContentCreator sharedComponents] themeColor])];
+}
+
+-(BOOL)storyboardName:(NSString *)storyboardName hasStoryboardIdentifier:(NSString *)storyboardIdentifier{
+    NSArray *list = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[NSBundle mainBundle] pathForResource:storyboardName ofType:@"storyboardc"] error:nil];
+    for (NSString *file in list) {
+        NSString *fileName = [file componentsSeparatedByString:@"."][0];
+        if ([fileName isEqualToString:storyboardIdentifier]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 @end
 
-@implementation DMContentCreatorCoponents
+@implementation DMContentCreatorComponents
 @end
