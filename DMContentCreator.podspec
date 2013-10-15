@@ -34,8 +34,8 @@ Pod::Spec.new do |s|
     s.dependency 'MBProgressHUD'
     s.dependency 'EGYWebViewController'
     s.dependency 'iOS7Colors'
-    s.dependency 'CZPhotoPickerController',:podspec=>'https://raw.github.com/indevizible/CZPhotoPickerController/master/CZPhotoPickerController.podspec'
-    s.dependency 'BSModalPickerView',:podspec=>'https://raw.github.com/indevizible/BSModalPickerView/master/BSModalPickerView.podspec'
+    s.dependency 'CZPhotoPickerController'
+    s.dependency 'BSModalPickerView'
     s.dependency 'BVReorderTableView', :head
     s.dependency 'SWTableViewCell'
 end
