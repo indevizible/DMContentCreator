@@ -37,6 +37,5 @@ Pod::Spec.new do |s|
     s.dependency 'CZPhotoPickerController',:podspec=>'https://raw.github.com/indevizible/CZPhotoPickerController/master/CZPhotoPickerController.podspec'
     s.dependency 'BSModalPickerView',:podspec=>'https://raw.github.com/indevizible/BSModalPickerView/master/BSModalPickerView.podspec'
     s.dependency 'BVReorderTableView', :head
-    s.dependency 'Appirater'
     s.dependency 'SWTableViewCell'
 end

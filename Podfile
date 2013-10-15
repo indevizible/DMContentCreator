@@ -20,5 +20,4 @@ pod 'iOS7Colors'
 pod 'CZPhotoPickerController',:podspec=>'https://raw.github.com/indevizible/CZPhotoPickerController/master/CZPhotoPickerController.podspec'
 pod 'BSModalPickerView',:podspec=>'https://raw.github.com/indevizible/BSModalPickerView/master/BSModalPickerView.podspec'
 pod 'BVReorderTableView', :head
-pod 'Appirater'
 pod 'SWTableViewCell'
