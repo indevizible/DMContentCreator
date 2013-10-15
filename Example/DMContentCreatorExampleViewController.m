@@ -90,7 +90,7 @@
 }
 - (IBAction)light:(id)sender {
     DMContentCreator *viewController = [DMContentCreator contentCreatorForIPhoneDevice];
-    [viewController setColor:color];
+    [self setVC:viewController];
     [viewController setThemeMode:DMContentCreatorBackgroundModeLight];
     [viewController setInvertedNavigation:NO];
     [viewController setTagsList:systemTags];
@@ -99,7 +99,7 @@
 }
 - (IBAction)addProduct:(id)sender {
     DMContentCreator *viewController = [DMContentCreator contentCreatorForIPhoneDevice];
-    [viewController setColor:color];
+    [self setVC:viewController];
     [viewController setThemeMode:DMContentCreatorBackgroundModeLight];
     [viewController setInvertedNavigation:YES];
     [viewController setTagsList:systemTags];
@@ -108,7 +108,7 @@
 }
 - (IBAction)dark:(id)sender {
     DMContentCreator *viewController = [DMContentCreator contentCreatorForIPhoneDevice];
-    [viewController setColor:color];
+    [self setVC:viewController];
     [viewController setThemeMode:DMContentCreatorBackgroundModeDark];
     [viewController setInvertedNavigation:NO];
     [viewController setTagsList:systemTags];
@@ -117,7 +117,7 @@
 }
 - (IBAction)invDark:(id)sender {
     DMContentCreator *viewController = [DMContentCreator contentCreatorForIPhoneDevice];
-    [viewController setColor:color];
+    [self setVC:viewController];
     [viewController setThemeMode:DMContentCreatorBackgroundModeDark];
     [viewController setInvertedNavigation:YES];
     [viewController setTagsList:systemTags];
@@ -132,6 +132,21 @@
     [_btnInvLight setTitleColor:color forState:UIControlStateNormal];
     [_btnDark setBackgroundColor:color];
     [_btnInvDark setTitleColor:color forState:UIControlStateNormal];
+}
+
+-(void)setVC:(DMContentCreator *)vc{
+    [vc setFeatureIdentifier:@1];
+    [vc setColor:color];
+    [vc setBaseURL:[NSURL URLWithString:@"http://v19.dmconnex.com"]];
+    [vc setOauth:@"8c2c4ad7dd9282daf513d345046fb826"];
+    
+    [vc setDefaultPlugins: @[@6]];
+    [vc setSampleLayoutPlugins:@[@14]];
+    [vc setAvaliablePlugins:@[@3,@14,@5,@8,@17,@10]];
+    [vc setFile:@"รีีัันรีัััรรัพุรนนดด"];
+//    [vc setDefaultPlugins: @[@6,@7]];
+//    [vc setSampleLayoutPlugins:@[@4,@8,@3,@10]];
+//    [vc setAvaliablePlugins:@[@4,@8,@3,@10,@14,@5]];
 }
 
 @end

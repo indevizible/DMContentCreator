@@ -15,13 +15,16 @@
 #import "DMContentCreator.h"
 #import <UIImage-Resize/UIImage+Resize.h>
 #import "DMContentCreatorStyle.h"
-
+#import <Foundation/Foundation.h>
 @interface DMPluginImageEditor (){
     BOOL isDismissing;
     CZPhotoPickerController *photoPicker;
+    
+    UIStatusBarStyle barStyle;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic,weak) DMContentPlugins *plugins;
+@property (nonatomic,weak) NSString *savePath;
 @end
 
 @implementation DMPluginImageEditor
@@ -42,7 +45,8 @@
     UIImage *image = [UIImage imageGlyphNamed:@"fontawesome##picture" height:100.0 color:[UIColor iOS7lightGrayColor]];
     if (_plugins[DMCCImage]) {
         [_imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [_imageView setImage:_plugins[DMCCImage]];
+        NSLog(@"Load  : %@",[self.savePath stringByAppendingPathComponent:_plugins[DMCCImage]]);
+        [_imageView setImage:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.savePath stringByAppendingPathComponent:_plugins[DMCCImage]]]];
     }else{
         [_imageView setImage:image];
         [_imageView setContentMode:UIViewContentModeCenter];
@@ -51,6 +55,11 @@
     self.navigationItem.leftBarButtonItem = [DMContentCreatorStyle closeButtonWithHandler:^(UIBarButtonItem *weakSender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    barStyle = [[UIApplication sharedApplication] statusBarStyle];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setStatusBarStyle:barStyle animated:NO];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -63,12 +72,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     photoPicker = [[CZPhotoPickerController alloc] initWithPresentingViewController:self withCompletionBlock:^(UIImagePickerController *imagePickerController, NSDictionary *imageInfoDict) {
-        UIImage *img = imageInfoDict[UIImagePickerControllerEditedImage];
+        UIImage *img = imageInfoDict[UIImagePickerControllerEditedImage]?imageInfoDict[UIImagePickerControllerEditedImage]:imageInfoDict[UIImagePickerControllerOriginalImage];
         if (img) {
-            _plugins[DMCCImage] =[img resizedImageToFitInSize:CGSizeMake(640.0f, 640.0f) scaleIfSmaller:NO];
-            [_imageView setImage:_plugins[DMCCImage]];
+            UIImage *image = [img resizedImageToFitInSize:CGSizeMake(640.0f, 640.0f) scaleIfSmaller:NO];
+            NSString *filenameToSave =[DMContentCreator generateImageFileFromPath:self.savePath extension:@"UIIMAGE"];
+            [NSKeyedArchiver archiveRootObject:image toFile:[[self savePath] stringByAppendingPathComponent:filenameToSave]];
+            if (_plugins[DMCCImage]) {
+                [[NSFileManager defaultManager] removeItemAtPath:[[self savePath] stringByAppendingPathComponent:_plugins[DMCCImage]] error:nil];
+            }
+            _plugins[DMCCImage] = filenameToSave;
+            [_imageView setImage:image];
             [_imageView setContentMode:UIViewContentModeScaleAspectFit];
-
         }
         [photoPicker dismissAnimated:YES];
     }];

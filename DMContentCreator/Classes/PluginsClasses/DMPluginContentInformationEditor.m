@@ -29,6 +29,7 @@
     CZPhotoPickerController *photoPicker;
    
 }
+@property (nonatomic,weak) NSString *savePath;
 @property (weak, nonatomic) IBOutlet UISwitch *publicSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *publicLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImage;
@@ -66,7 +67,7 @@
     UIImage *image = [UIImage imageGlyphNamed:@"fontawesome##picture" height:100.0 color:[UIColor iOS7lightGrayColor]];
     if (_plugins[DMCCImageThumbnail]) {
         [_thumbnailImage setContentMode:UIViewContentModeScaleAspectFill];
-        [_thumbnailImage setImage:_plugins[DMCCImageThumbnail]];
+        [_thumbnailImage setImage:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.savePath stringByAppendingPathComponent:_plugins[DMCCImageThumbnail]]]];
     }else{
         [_thumbnailImage setImage:image];
         [_thumbnailImage setContentMode:UIViewContentModeCenter];
@@ -118,16 +119,21 @@
 }
 
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 2) {
         photoPicker = [[CZPhotoPickerController alloc] initWithPresentingViewController:self withCompletionBlock:^(UIImagePickerController *imagePickerController, NSDictionary *imageInfoDict) {
-            UIImage *img = imageInfoDict[UIImagePickerControllerEditedImage];
+            UIImage *img = imageInfoDict[UIImagePickerControllerEditedImage]?imageInfoDict[UIImagePickerControllerEditedImage]:imageInfoDict[UIImagePickerControllerOriginalImage];
             if (img) {
-                _plugins[DMCCImageThumbnail] =[img resizedImageToFitInSize:CGSizeMake(500.0f, 500.0f) scaleIfSmaller:NO];
-                [_thumbnailImage setImage:_plugins[DMCCImageThumbnail]];
+                UIImage *image = [img resizedImageToFitInSize:CGSizeMake(500.0f, 500.0f) scaleIfSmaller:NO];
+                NSString *filename = [DMContentCreator generateImageFileFromPath:self.savePath extension:@"UIIMAGE"];
+                [NSKeyedArchiver archiveRootObject:image toFile:[self.savePath stringByAppendingPathComponent:filename]];
+                if (_plugins[DMCCImageThumbnail]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:[self.savePath stringByAppendingPathComponent:_plugins[DMCCImageThumbnail]] error:nil];
+                }
+                _plugins[DMCCImageThumbnail] = filename;
+                [_thumbnailImage setImage:image];
                 [_thumbnailImage setContentMode:UIViewContentModeScaleAspectFill];
 
             }

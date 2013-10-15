@@ -30,7 +30,7 @@
 #define DMCMapLatitude @"lat"
 #define DMCMapLongitude @"lng"
 
-@interface DMContentPlugins : NSObject
+@interface DMContentPlugins : NSObject<NSCoding>
 @property (nonatomic,strong) NSNumber *pluginIdentifier;
 @property (nonatomic,strong) NSString *pluginName;
 @property (nonatomic,assign) BOOL isStaticPlugin,isDataComplete;
@@ -40,10 +40,13 @@
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key NS_AVAILABLE(10_8, 6_0);
 - (id)objectForKeyedSubscript:(id)key NS_AVAILABLE(10_8, 6_0);
 - (void)removeObjectForKey:(id)aKey;
-+(instancetype)pluginWithIdentifier:(NSUInteger)pluginIdentifier color:(UIColor *)color;
++(instancetype)pluginWithIdentifier:(NSUInteger)pluginIdentifier;
++(NSString *)imageNameForPluginIdentifier:(NSUInteger )__plugid;
 -(NSMutableArray *)checkIncompleteLists;
-
+-(NSMutableDictionary *)generatedDataWithPath:(NSString *)path;
 @end
 @protocol DMContentPluginProtocol
 -(void)setPlugins:(DMContentPlugins *)plugins;
+@optional
+-(void)setSavePath:(NSString *)savePath;
 @end

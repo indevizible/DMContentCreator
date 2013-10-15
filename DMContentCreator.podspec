@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #s.exclude_files = 'Graphics/Default-568h@2x.png'
   s.requires_arc = true
   #s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore', 'ImageIO', 'MessageUI'
+    s.dependency 'UIImage-Resize'
     s.dependency 'SIAlertView'
-    s.dependency 'XCDYouTubeVideoPlayerViewController'
     s.dependency 'LAUtilitiesStaticLib'
     s.dependency 'BlocksKit'
     s.dependency 'ALActionBlocks'
@@ -34,4 +34,9 @@ Pod::Spec.new do |s|
     s.dependency 'MBProgressHUD'
     s.dependency 'EGYWebViewController'
     s.dependency 'iOS7Colors'
+    s.dependency 'CZPhotoPickerController',:podspec=>'https://raw.github.com/indevizible/CZPhotoPickerController/master/CZPhotoPickerController.podspec'
+    s.dependency 'BSModalPickerView',:podspec=>'https://raw.github.com/indevizible/BSModalPickerView/master/BSModalPickerView.podspec'
+    s.dependency 'BVReorderTableView', :head
+    s.dependency 'Appirater'
+    s.dependency 'SWTableViewCell'
 end

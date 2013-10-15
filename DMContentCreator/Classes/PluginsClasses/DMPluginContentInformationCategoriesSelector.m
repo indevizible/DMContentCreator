@@ -30,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     checkedImage =[UIImage imageGlyphNamed:@"fontawesome##ok-sign" height:32.0f color:[[DMContentCreator sharedComponents] color]];
     uncheckedImage  = [UIImage imageGlyphNamed:@"fontawesome##ok-circle" height:32.0f color:[UIColor iOS7lightGrayColor]];
     [self.navigationController.navigationBar setTintColor:[[DMContentCreator sharedComponents] themeColor]];

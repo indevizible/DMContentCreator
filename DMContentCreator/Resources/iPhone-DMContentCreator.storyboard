@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hMG-zZ-Qoy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hMG-zZ-Qoy">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -187,7 +187,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bze-Ft-LgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2617" y="-561"/>
+            <point key="canvasLocation" x="1520" y="-370"/>
         </scene>
         <!--Plugin Content Information Tags Selector - #TAGS-->
         <scene sceneID="3MY-eJ-rjy">
@@ -235,7 +235,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5EV-Dy-Woo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3290" y="-171"/>
+            <point key="canvasLocation" x="2069" y="-370"/>
         </scene>
         <!--Plugin Content Information Categories Selector - Categories-->
         <scene sceneID="ajj-ff-vbn">
@@ -264,13 +264,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZ3-l5-3C2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3290" y="-887"/>
+            <point key="canvasLocation" x="2076" y="-1092"/>
         </scene>
         <!--Content Creator - New Content-->
         <scene sceneID="EJQ-dc-xJT">
             <objects>
                 <tableViewController storyboardIdentifier="CTCAT" id="AFJ-mG-6pm" customClass="DMContentCreator" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="wnQ-LJ-R5v">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="wnQ-LJ-R5v" customClass="BVReorderTableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
@@ -305,19 +305,18 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Qcz-n0-WtI" firstAttribute="leading" secondItem="el6-O9-g0a" secondAttribute="trailing" constant="14" id="BSM-q3-Mk9"/>
+                                        <constraint firstItem="Qcz-n0-WtI" firstAttribute="leading" secondItem="el6-O9-g0a" secondAttribute="trailing" constant="14" id="F8m-ik-bno"/>
                                         <constraint firstItem="dbt-qq-uFe" firstAttribute="leading" secondItem="el6-O9-g0a" secondAttribute="trailing" constant="14" id="LFr-8d-QWT"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dbt-qq-uFe" secondAttribute="trailing" constant="20" id="1sH-ha-Yv7"/>
-                                    <constraint firstItem="el6-O9-g0a" firstAttribute="leading" secondItem="EOW-G5-mA0" secondAttribute="leading" constant="20" id="KdN-eO-ePI"/>
-                                    <constraint firstItem="dbt-qq-uFe" firstAttribute="leading" secondItem="Qcz-n0-WtI" secondAttribute="leading" id="Qsg-em-bPa"/>
+                                    <constraint firstAttribute="trailing" secondItem="dbt-qq-uFe" secondAttribute="trailing" priority="992" constant="20" id="1sH-ha-Yv7"/>
+                                    <constraint firstItem="el6-O9-g0a" firstAttribute="leading" secondItem="EOW-G5-mA0" secondAttribute="leading" priority="809" constant="20" id="KdN-eO-ePI"/>
                                     <constraint firstItem="el6-O9-g0a" firstAttribute="top" secondItem="EOW-G5-mA0" secondAttribute="top" constant="19" id="ZEv-29-fAf"/>
                                     <constraint firstItem="Qcz-n0-WtI" firstAttribute="top" secondItem="EOW-G5-mA0" secondAttribute="top" constant="20" id="nYr-IH-erA"/>
                                     <constraint firstAttribute="bottom" secondItem="dbt-qq-uFe" secondAttribute="bottom" constant="22" id="ouv-xj-MeM"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qcz-n0-WtI" secondAttribute="trailing" constant="20" id="rih-M2-gZG"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qcz-n0-WtI" secondAttribute="trailing" priority="992" constant="20" id="rih-M2-gZG"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="pluginDetailsLabel" destination="dbt-qq-uFe" id="4tB-8k-rIf"/>
@@ -335,7 +334,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2W-iN-KhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="287"/>
+            <point key="canvasLocation" x="2064" y="479"/>
         </scene>
         <!--Plugin Image Editor - PLUG-4-->
         <scene sceneID="jRT-L9-ggi">
@@ -377,7 +376,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8wM-Mv-wu3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2615" y="296"/>
+            <point key="canvasLocation" x="2615" y="479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k8T-KK-dOF">
@@ -395,7 +394,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iH8-x7-a1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1002" y="287"/>
+            <point key="canvasLocation" x="1538" y="479"/>
         </scene>
         <!--Plugin Image Editor - PLUG-14-->
         <scene sceneID="iZi-lz-KRF">
@@ -482,7 +481,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QaM-7e-GM4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2617" y="2290"/>
+            <point key="canvasLocation" x="3045" y="1302"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8OQ-ar-0jz">
@@ -497,7 +496,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbj-mg-xXe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-712" y="4362"/>
+            <point key="canvasLocation" x="1520" y="1311"/>
         </scene>
         <!--Plugin Video Editor - PLUG-10-->
         <scene sceneID="ebm-gz-kDz">
@@ -539,7 +538,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdI-Th-yrf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2624" y="3290"/>
+            <point key="canvasLocation" x="3495" y="1308"/>
         </scene>
         <!--Plugin Date Editor - PLUG-7-->
         <scene sceneID="xJy-FG-shp">
@@ -606,7 +605,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4QI-NP-YJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="4316"/>
+            <point key="canvasLocation" x="3053" y="479"/>
         </scene>
         <!--Plugin Map Editor - PLUG-5-->
         <scene sceneID="yLs-wJ-D6J">
@@ -628,7 +627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnv-TC-r47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="4350"/>
+            <point key="canvasLocation" x="2064" y="1311"/>
         </scene>
         <!--Plugin Price Editor - PLUG-6-->
         <scene sceneID="TKe-U5-204">
@@ -715,7 +714,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FRf-uK-Wdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2603" y="4316"/>
+            <point key="canvasLocation" x="3495" y="479"/>
         </scene>
         <!--Plugin Gallery Editor - PLUG-3-->
         <scene sceneID="HWh-Oh-V4d">
@@ -874,7 +873,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YnL-8N-s7f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3077" y="4322"/>
+            <point key="canvasLocation" x="3945" y="485"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

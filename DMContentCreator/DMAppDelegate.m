@@ -21,6 +21,9 @@
     DMExampleViewController *mainView = [DMExampleViewController new];
     [mainView setTitle:@"Select color"];
     [self.window setRootViewController:[[UINavigationController alloc] initWithRootViewController:mainView]];
+    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     return YES;
 }
 

@@ -12,6 +12,7 @@
 #import <BlocksKit/BlocksKit.h>
 @interface DMMapEditorAnnotation : NSObject <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
+   
 }
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title,*subtitle;
@@ -34,7 +35,7 @@
 
 @interface DMPluginMapEditor ()<MKMapViewDelegate>
 {
-
+ NSString *labelCaption;
 }
 @property (nonatomic,weak) DMContentPlugins *plugins;
 @property  (nonatomic,weak) IBOutlet MKMapView *mapView;
@@ -63,7 +64,27 @@
     [DMContentCreatorStyle setNavigationBarStyle:self.navigationController];
     self.title = _plugins.pluginName;
     self.navigationItem.leftBarButtonItem = [DMContentCreatorStyle closeButtonWithHandler:^(UIBarButtonItem *weakSender) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        UIAlertView *alertView = [UIAlertView alertViewWithTitle:@"Save" message:[NSString stringWithFormat:@"Do you want to save this location with caption \"%@\" ?",labelCaption]];
+        [alertView addButtonWithTitle:@"Don't Save" handler:^{
+            [_plugins checkIncompleteLists];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertView setCancelButtonWithTitle:@"Save" handler:^{
+            if ([[self.mapView annotations] count]) {
+                DMMapEditorAnnotation *annotation = [[self.mapView annotations] objectAtIndex:0];
+                _plugins[DMCMapLatitude] = @(annotation.coordinate.latitude);
+                _plugins[DMCMapLongitude] = @(annotation.coordinate.longitude);
+                _plugins[DMCCaption] = [labelCaption length] ? labelCaption : nil;
+            }else{
+                _plugins[DMCMapLatitude] = nil;
+                _plugins[DMCMapLongitude] = nil;
+                _plugins[DMCCaption] = nil;
+            }
+            [_plugins checkIncompleteLists];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertView show];
     }];
     self.navigationItem.rightBarButtonItem = [DMContentCreatorStyle barButtonItemName:@"fontawesome##location-arrow" handler:^(UIBarButtonItem *weakSender) {
         [self zoomToUserLocation:self.mapView.userLocation];
@@ -77,7 +98,10 @@
     self.navigationController.navigationBar.translucent = NO;
     if (_plugins[DMCMapLatitude] && _plugins[DMCMapLongitude]) {
         DMMapEditorAnnotation *annotation = [[DMMapEditorAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake([_plugins[DMCMapLatitude] floatValue], [_plugins[DMCMapLongitude] floatValue])];
-        annotation.title = _plugins[DMCCaption];
+        labelCaption = _plugins[DMCCaption];
+        
+        [annotation setTitle:[labelCaption length] ? labelCaption : @"<Untitled>"];
+        annotation.subtitle =[labelCaption length] ? nil :  @"Tap right icon to edit caption";
         [self.mapView addAnnotation:annotation];
 
     }
@@ -85,9 +109,10 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     self.navigationController.navigationBar.translucent = YES;
+    
 }
+
 
 - (void)zoomToUserLocation:(MKUserLocation *)userLocation
 {
@@ -146,13 +171,14 @@
             UIAlertView *alertView = [UIAlertView alertViewWithTitle:@"Caption" message:@"Enter caption for this point"];
             __block UIAlertView *blockAlert = alertView;
             [alertView addButtonWithTitle:@"OK" handler:^{
-                _plugins[DMCCaption] = [[blockAlert textFieldAtIndex:0] text];
-                [annotation setTitle:_plugins[DMCCaption] ? _plugins[DMCCaption] : @"<Untitled>"];
-                annotation.subtitle =_plugins[DMCCaption] ? nil :  @"Tap right icon to edit caption";
+                labelCaption = [[blockAlert textFieldAtIndex:0] text];
+                [annotation setTitle:[labelCaption length] ? labelCaption : @"<Untitled>"];
+                annotation.subtitle =[labelCaption length] ? nil :  @"Tap right icon to edit caption";
             }];
             [alertView setCancelButtonWithTitle:@"Cancel" handler:nil];
             alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
             [alertView show];
+            [[alertView textFieldAtIndex:0] setText:labelCaption];
         }];
         pav.rightCalloutAccessoryView  = editButton;
     }else{
@@ -171,10 +197,9 @@
     [self.mapView removeAnnotations:self.mapView.annotations];
     
     DMMapEditorAnnotation *annotation = [[DMMapEditorAnnotation alloc] initWithLocation:touchMapCoordinate];
-    annotation.title = _plugins[DMCCaption] ? _plugins[DMCCaption] : @"<Untitled>";
-    annotation.subtitle =_plugins[DMCCaption] ? nil :  @"Tap right icon to edit caption";
+    annotation.title = [labelCaption length] ? labelCaption : @"<Untitled>";
+    annotation.subtitle =[labelCaption length] ? nil :  @"Tap right icon to edit caption";
     [self.mapView addAnnotation:annotation];
-
 }
 
 - (void)mapView:(MKMapView *)mapView

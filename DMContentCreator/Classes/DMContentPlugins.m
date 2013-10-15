@@ -7,6 +7,7 @@
 //
 
 #import "DMContentPlugins.h"
+#import "DMContentCreator.h"
 #import <iOS7Colors/UIColor+iOS7Colors.h>
 #import <WTGlyphFontSet/WTGlyphFontSet.h>
 @interface DMContentPlugins()
@@ -14,10 +15,10 @@
 @end
 
 @implementation DMContentPlugins
-+(instancetype)pluginWithIdentifier:(NSUInteger)pluginIdentifier color:(UIColor *)color{
++(instancetype)pluginWithIdentifier:(NSUInteger)pluginIdentifier{
     DMContentPlugins *_plugin = [DMContentPlugins new];
     _plugin.pluginIdentifier = @(pluginIdentifier);
-    _plugin.color = color;
+    _plugin.color = [[DMContentCreator sharedComponents] color];
     NSString *localizedPluginName = [NSString stringWithFormat:@"DMCONTENTPLUGIN-%u",pluginIdentifier];
     _plugin.pluginName = NSLocalizedString(localizedPluginName, @"Use your local name by localizable.string");
     _plugin.thumbnail = [DMContentPlugins imageForPlugin:_plugin];
@@ -25,34 +26,33 @@
 }
 
 +(UIImage *)imageForPlugin:(DMContentPlugins *)plugin{
-    switch ([[plugin pluginIdentifier] unsignedIntegerValue]) {
+    return [UIImage imageGlyphNamed:[DMContentPlugins imageNameForPluginIdentifier:[[plugin pluginIdentifier] unsignedIntegerValue]] height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
+}
+
++(NSString *)imageNameForPluginIdentifier:(NSUInteger )__plugid{
+    switch (__plugid) {
         case 0:
-            return [UIImage imageGlyphNamed:@"fontawesome##info-sign" size:CGSizeMake(50, 50) color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
+            return @"fontawesome##info-sign";
             break;
         case 3:
-            return  [UIImage imageGlyphNamed:@"fontawesome##th-large" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
-        case 14:
+            return @"fontawesome##th-large";
         case 4:
-            return [UIImage imageGlyphNamed:@"fontawesome##picture" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
+        case 14:
+            return @"fontawesome##picture";
+        case 5:
+            return @"fontawesome##map-marker";
         case 6:
-            return [UIImage imageGlyphNamed:@"fontawesome##money" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
+            return @"fontawesome##money";
         case 7:
-            return [UIImage imageGlyphNamed:@"fontawesome##calendar" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
+            return @"fontawesome##calendar";
         case 8:
-            return [UIImage imageGlyphNamed:@"fontawesome##font" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
+            return @"fontawesome##font";
         case 10:
-            return [UIImage imageGlyphNamed:@"fontawesome##play-sign" height:50.0f color:([plugin isDataComplete] ? plugin.color: [UIColor iOS7lightGrayColor])];
-            break;
+            return @"fontawesome##play-sign";
         default:
-            return [UIImage imageGlyphNamed:@"fontawesome##question-sign" height:50.0f color: [UIColor iOS7lightGrayColor]];
+            return @"fontawesome##question-sign";
             break;
     }
-    return nil;
 }
 
 -(void)setIsDataComplete:(BOOL)isDataComplete{
@@ -68,6 +68,64 @@
 
 -(void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key{
     self.dataSource[key] = obj;
+}
+
+-(NSMutableDictionary *)generatedDataWithPath:(NSString *)path{
+    NSMutableDictionary *ds = [NSMutableDictionary dictionaryWithDictionary:self.dataSource];
+    switch ([_pluginIdentifier unsignedIntegerValue]) {
+        case 0:
+            if (ds[DMCCImageThumbnail]) {
+                ds[DMCCImageThumbnail] =  [self base64ImageFromUnarchivePath:[path stringByAppendingPathComponent:ds[DMCCImageThumbnail]]];
+            }
+            if (ds[DMCCTagSystemrKey]) {
+                ds[DMCCTagSystemrKey] = [self dictionaryFromArray:ds[DMCCTagSystemrKey]];
+            }
+            if (ds[DMCCTagUserKey]) {
+                ds[DMCCTagUserKey] = [self dictionaryFromArray:ds[DMCCTagUserKey]];
+            }
+            break;
+        case 3:
+        {
+            [ds removeAllObjects];
+            NSMutableDictionary *cvtData =[NSMutableDictionary dictionaryWithDictionary:self.dataSource];
+            if ([cvtData count]) {
+                ds[@"imgmids"] = cvtData;
+                for (NSString *key in ds[@"imgmids"]) {
+                    if (ds[@"imgmids"][key][DMCGalleryPhoto]) {
+                        ds[@"imgmids"][key][DMCGalleryPhoto] = [self base64ImageFromUnarchivePath:[path stringByAppendingPathComponent:ds[@"imgmids"][key][DMCGalleryPhoto]]];
+                    }
+                }
+            }
+        }
+            break;
+        case 4:
+        case 14:
+            if (ds[DMCCImage]) {
+                ds[DMCCImage] = [self base64ImageFromUnarchivePath:[path stringByAppendingPathComponent:ds[DMCCImage]]];
+            }
+            break;
+        default:
+            break;
+    }
+    if (![_pluginIdentifier isEqualToNumber:@0]) {
+        ds[@"plugid"] = _pluginIdentifier;
+    }
+    return ds;
+}
+
+-(NSString *)base64ImageFromUnarchivePath:(NSString *)path{
+    UIImage *image = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    NSData *data = UIImagePNGRepresentation(image);
+    return [data base64Encoding];
+}
+
+-(NSMutableDictionary *)dictionaryFromArray:(NSArray *)array{
+    NSUInteger i = 0;
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    for (id object in array) {
+        dic[@(i++)] = object;
+    }
+    return dic;
 }
 
 -(id)objectForKeyedSubscript:(id)key{
@@ -90,6 +148,12 @@
         case 4:
             fieldNameDict = @{DMCCImage: NSLocalizedString(@"DMCCImage", @"Regular Image")};
             requiredField = @[DMCCImage];
+            break;
+        case 5:
+            fieldNameDict = @{DMCMapLatitude: NSLocalizedString(@"DMCMapLatitude", @"Latitude"),
+                              DMCMapLongitude:NSLocalizedString(@"DMCMapLongitude", @"Longitude"),
+                              DMCCaption:NSLocalizedString(@"DMCCaption", @"Caption")};
+            requiredField = @[DMCMapLongitude,DMCMapLatitude];
             break;
         case 6:
             fieldNameDict = @{DMCRegularPrice: NSLocalizedString(@"DMCRegularPrice", @"Regular price"),
@@ -148,4 +212,53 @@
 -(void)removeObjectForKey:(id)aKey{
     [self.dataSource removeObjectForKey:aKey];
 }
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        self.pluginIdentifier = [aDecoder decodeObjectForKey:@"plugid"];
+        self.pluginName = [aDecoder decodeObjectForKey:@"plugname"];
+        self.isStaticPlugin = [aDecoder decodeBoolForKey:@"isstat"];
+        self.isDataComplete = [aDecoder decodeBoolForKey:@"isdc"];
+        self.thumbnail = [aDecoder decodeObjectForKey:@"thumbnail"];
+        self.color = [aDecoder decodeObjectForKey:@"color"];
+        self.dataSource = [aDecoder decodeObjectForKey:@"das"];
+        
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.pluginIdentifier forKey:@"plugid"];
+    [aCoder encodeObject:self.pluginName forKey:@"plugname"];
+    [aCoder encodeBool:self.isStaticPlugin forKey:@"isstat"];
+    [aCoder encodeBool:self.isDataComplete forKey:@"isdac"];
+    [aCoder encodeObject:self.thumbnail forKey:@"thumbnail"];
+    [aCoder encodeObject:self.color forKey:@"color"];
+    [aCoder encodeObject:self.dataSource forKey:@"das"];
+}
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

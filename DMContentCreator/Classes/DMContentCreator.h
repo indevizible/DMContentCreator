@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BVReorderTableView/BVReorderTableView.h>
 #import "DMContentPlugins.h"
 typedef  enum {
     DMContentCreatorBackgroundModeLight,
@@ -24,21 +25,26 @@ typedef void(^successBlock)(id productid);
 @property (nonatomic,assign) DMContentCreatorBackgroundMode themeMode;
 @property (nonatomic,assign) BOOL invertedNavigation;
 @property (nonatomic,strong) NSArray *tagsList;
+@property (nonatomic,strong) NSString *productTempName;
 @end
 
 
-@interface DMContentCreator : UITableViewController
-@property (nonatomic,strong) id featureIdentifier;
-@property (nonatomic,strong) NSArray *defaultPlugins,*avaliablePlugins;
-@property (nonatomic,strong) NSURL *clientURL;
+@interface DMContentCreator : UITableViewController<ReorderTableViewDelegate>
+@property (nonatomic,strong) NSNumber *featureIdentifier;
+@property (nonatomic,strong) NSArray *defaultPlugins,*avaliablePlugins,*sampleLayoutPlugins;
+@property (nonatomic,strong) NSURL *baseURL;
 @property (nonatomic,copy)   id handler;
 @property (nonatomic,strong) UIColor *color ;
 @property (nonatomic,assign) BOOL invertedNavigation;
 @property (nonatomic,assign) DMContentCreatorBackgroundMode themeMode;
+@property (nonatomic,strong) NSString *file,*oauth;
 @property (nonatomic,weak) NSArray *tagsList;
 +(instancetype)contentCreatorForIPhoneDevice;
 +(DMContentCreatorComponents *)sharedComponents;
-
++(NSString *)generateImageFileFromPath:(NSString *)path extension:(NSString *)extension;
++(NSArray *)fileListForFeautreIdentifier:(NSUInteger)featureIdentifier;
++(BOOL)deleteSaveName:(NSString *)fileToDelete featureIdentifier:(NSUInteger)featureIdentifier;
 +(UIImage *)backImage;
+-(BOOL)isSaved;
 @end
 

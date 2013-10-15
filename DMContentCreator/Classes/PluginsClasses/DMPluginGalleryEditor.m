@@ -13,6 +13,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import <CZPhotoPickerController/CZPhotoPickerController.h>
 #import <UIImage-Resize/UIImage+Resize.h>
+#import "DMContentCreator.h"
 #define DMCGalleryImage(index) @[DMCGalleryImage1,DMCGalleryImage2,DMCGalleryImage3,DMCGalleryImage4][index]
 @interface DMPluginGalleryEditor (){
     BOOL isDismissing;
@@ -20,7 +21,9 @@
     UIImage *tmpImage;
     NSArray *imageViewList,*captionList;
     CZPhotoPickerController *photoPicker;
+    UIStatusBarStyle barStyle;
 }
+@property (nonatomic,weak) NSString *savePath;
 @property (nonatomic,weak) DMContentPlugins *plugins;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView2;
@@ -61,6 +64,7 @@
         }
         [self setImageForIndex:i withCaption:YES];
     }
+    barStyle = [[UIApplication sharedApplication] statusBarStyle];
 }
 
 
@@ -71,6 +75,11 @@
         [self prepareData];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:barStyle animated:NO];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -100,9 +109,14 @@
         NSLog(@"image : %@",imageInfoDict);
         UIImage *img = imageInfoDict[UIImagePickerControllerEditedImage] ? imageInfoDict[UIImagePickerControllerEditedImage] : imageInfoDict[UIImagePickerControllerOriginalImage];
         if (img) {
-            _plugins[DMCGalleryImage(index)][DMCGalleryPhoto] =[[img resizedImageToFitInSize:CGSizeMake(640.0f, 640.0f) scaleIfSmaller:NO] copy];
+            NSString *filenameToSave =[DMContentCreator generateImageFileFromPath:self.savePath extension:@"UIIMAGE"];
+            UIImage *resizedImage =[[img resizedImageToFitInSize:CGSizeMake(640.0f, 640.0f) scaleIfSmaller:NO] copy];
+            [NSKeyedArchiver archiveRootObject:resizedImage toFile:[self.savePath stringByAppendingPathComponent:filenameToSave]];
+            if (_plugins[DMCGalleryImage(index)][DMCGalleryPhoto]) {
+                [[NSFileManager defaultManager] removeItemAtPath:[self.savePath stringByAppendingPathComponent:_plugins[DMCGalleryImage(index)][DMCGalleryPhoto]] error:nil];
+            }
+            _plugins[DMCGalleryImage(index)][DMCGalleryPhoto] = filenameToSave;
         }
-        
         [self setImageForIndex:index withCaption:NO];
         [photoPicker dismissAnimated:YES];
     }];
@@ -111,7 +125,7 @@
 
 -(void)setImageForIndex:(NSUInteger )i withCaption:(BOOL)enableCaption{
     if (_plugins[DMCGalleryImage(i)][DMCGalleryPhoto]) {
-        [[imageViewList objectAtIndex:i] setImage:_plugins[DMCGalleryImage(i)][DMCGalleryPhoto]];
+        [[imageViewList objectAtIndex:i] setImage:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.savePath stringByAppendingPathComponent:_plugins[DMCGalleryImage(i)][DMCGalleryPhoto]]]];
         [[imageViewList objectAtIndex:i] setContentMode:UIViewContentModeScaleAspectFill];
         if (enableCaption) {
              [[captionList objectAtIndex:i] setText:_plugins[DMCGalleryImage(i)][DMCCaption]];
@@ -121,6 +135,7 @@
         [[imageViewList objectAtIndex:i] setContentMode:UIViewContentModeCenter];
     }
 }
+
 
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
