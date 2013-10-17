@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "DMContentPlugins.h"
 
 @interface DMPluginImageEditor : UITableViewController<DMContentPluginProtocol>

@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailView;
 @property (weak, nonatomic) IBOutlet UILabel *pluginTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pluginDetailsLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 
 @end

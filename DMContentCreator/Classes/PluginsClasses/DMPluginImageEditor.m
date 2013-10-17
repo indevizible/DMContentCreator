@@ -22,6 +22,7 @@
     
     UIStatusBarStyle barStyle;
 }
+@property (weak, nonatomic) IBOutlet UITextField *captionTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic,weak) DMContentPlugins *plugins;
 @property (nonatomic,weak) NSString *savePath;
@@ -41,8 +42,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [self setTitle:_plugins.pluginName];
+     [self.captionTextField setText:_plugins[DMCCaption]];
     UIImage *image = [UIImage imageGlyphNamed:@"fontawesome##picture" height:100.0 color:[UIColor iOS7lightGrayColor]];
+    [_captionTextField setTextColor:[[DMContentCreator sharedComponents] color]];
     if (_plugins[DMCCImage]) {
         [_imageView setContentMode:UIViewContentModeScaleAspectFit];
         NSLog(@"Load  : %@",[self.savePath stringByAppendingPathComponent:_plugins[DMCCImage]]);
@@ -64,7 +68,11 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    
+    if ([_captionTextField.text length]) {
+        _plugins[DMCCaption] = _captionTextField.text;
+    }else{
+        [_plugins removeObjectForKey:DMCCaption];
+    }
     [_plugins checkIncompleteLists];
 }
 

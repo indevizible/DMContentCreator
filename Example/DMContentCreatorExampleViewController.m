@@ -140,10 +140,10 @@
     [vc setBaseURL:[NSURL URLWithString:@"http://v19.dmconnex.com"]];
     [vc setOauth:@"8c2c4ad7dd9282daf513d345046fb826"];
     
-    [vc setDefaultPlugins: @[@6]];
+    [vc setDefaultPlugins: @[@6,@7]];
     [vc setSampleLayoutPlugins:@[@14]];
     [vc setAvaliablePlugins:@[@3,@14,@5,@8,@17,@10]];
-    [vc setFile:@"รีีัันรีัััรรัพุรนนดด"];
+//    [vc setFile:@"รีีัันรีัััรรัพุรนนดด"];
 //    [vc setDefaultPlugins: @[@6,@7]];
 //    [vc setSampleLayoutPlugins:@[@4,@8,@3,@10]];
 //    [vc setAvaliablePlugins:@[@4,@8,@3,@10,@14,@5]];

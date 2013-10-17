@@ -166,27 +166,32 @@
 {
     DMContentPlugins *plugin = dataSource[indexPath.row];
     UIImage *image = [UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"item-background-gray.png"]];
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
-    backgroundView.tag =  123;
+    UIImage *line =[UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"line.png"]];
+//    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:((indexPath.row >= [_defaultPlugins count]) ? image : line)];
+//    backgroundView.tag =  123;
     DMContentCreatorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     if ([[dataSource objectAtIndex:indexPath.row] isKindOfClass:[NSString class]] &&
-        [[dataSource objectAtIndex:indexPath.row] isEqualToString:@"DUMMY"]) {
         
+        [[dataSource objectAtIndex:indexPath.row] isEqualToString:@"DUMMY"]) {
         [cell.pluginTitleLabel setText:nil];
         [cell.pluginDetailsLabel setTextColor:[UIColor iOS7lightGrayColor]];
         [cell.pluginDetailsLabel setText:nil];
         [cell.thumbnailView setImage:nil];
         [cell setBackgroundView:nil];
+        cell.hidden = YES;
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:123];
+        [imageView setImage:nil];
+        cell.backgroundImage.image = nil;
         [imageView removeFromSuperview];
     }
     else {
+        cell.hidden= NO;
         NSString *string = [NSString stringWithFormat:@"DMCCDESCRIPT%02u",[plugin.pluginIdentifier unsignedIntegerValue]];
         NSString *abc = NSLocalizedString(string, @"detail description");
         [cell.pluginDetailsLabel setText:abc];
 //        [cell setBackgroundView:(indexPath.row < [_defaultPlugins count] && NO? nil : backgroundView)];
-        [cell.contentView addSubview:backgroundView];
-        [backgroundView sendSubviewToBack:cell.pluginTitleLabel];
+
+        cell.backgroundImage.image = (indexPath.row >= [_defaultPlugins count]) ? image : line;
         [cell.pluginTitleLabel setTextColor:_color];
         NSString *storyboardIdentifier =[NSString stringWithFormat:@"DMEPLG%02u",plugin.pluginIdentifier.unsignedIntegerValue];
         if ([self storyboardName:@"iPhone-DMContentCreator" hasStoryboardIdentifier:storyboardIdentifier]) {
@@ -455,26 +460,9 @@
     if ((!_featureIdentifier || !_baseURL || !_oauth)) {
         return;
     }
-    isUploading = YES;
-    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view.superview animated:YES];
-    progress.mode = MBProgressHUDModeAnnularDeterminate;
-    progress.progress = 0.0;
-    progress.labelText = @"Preparing...";
-    
     
     UIBarButtonItem *closeButton = self.navigationItem.leftBarButtonItem;
-    UIBarButtonItem *stopButton = [DMContentCreatorStyle barButtonItemName:@"fontawesome##remove-sign" handler:^(UIBarButtonItem *weakSender) {
-        SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Stop" andMessage:@"Do you want to stop upload?"];
-        [alert addButtonWithTitle:@"Stop" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-            [queue cancelAllOperations];
-            [progress hide:YES];
-            self.navigationItem.leftBarButtonItem = closeButton;
-        }];
-        [alert addButtonWithTitle:@"Continue" type:SIAlertViewButtonTypeDefault handler:nil];
-        [alert show];
-    }];
-    self.navigationItem.leftBarButtonItem = stopButton;
-    
+   
     NSArray *reqList = nil;
     for (int i = 0; i < [_defaultPlugins count]; i++) {
         DMContentPlugins *eachPlugin = dataSource[i];
@@ -490,6 +478,11 @@
         [alert setCancelButtonWithTitle:@"OK" handler:nil];
         [alert show];
     }else{
+        isUploading = YES;
+        MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view.superview animated:YES];
+        progress.mode = MBProgressHUDModeAnnularDeterminate;
+        progress.progress = 0.0;
+        progress.labelText = @"Preparing...";
         __block NSMutableDictionary *param;
         NSBlockOperation *dataGenerator = [NSBlockOperation blockOperationWithBlock:^{
             param = [self parameterFromPluginDatasource:dataSource oauth:_oauth];
@@ -541,7 +534,19 @@
             }
         }];
         [queue addOperation:dataGenerator];
+        UIBarButtonItem *stopButton = [DMContentCreatorStyle barButtonItemName:@"fontawesome##remove-sign" handler:^(UIBarButtonItem *weakSender) {
+            SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Stop" andMessage:@"Do you want to stop upload?"];
+            [alert addButtonWithTitle:@"Stop" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                [queue cancelAllOperations];
+                [progress hide:YES];
+                self.navigationItem.leftBarButtonItem = closeButton;
+            }];
+            [alert addButtonWithTitle:@"Continue" type:SIAlertViewButtonTypeDefault handler:nil];
+            [alert show];
+        }];
+        self.navigationItem.leftBarButtonItem = stopButton;
     }
+   
 }
 
 -(void)dismissWithAnimated:(BOOL)animated{
