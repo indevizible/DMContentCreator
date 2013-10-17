@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git',:tag => '0.0.5'}
 
   s.platform = :ios
-
+  s.ios.deployment_target = '6.0'
   s.source_files = 'DMContentCreator/Classes/*.{h,m}','DMContentCreator/Classes/**/*.{h,m}'
 
   s.resources = 'DMContentCreator/Resources/*.{storyboard,png,bundle}'
