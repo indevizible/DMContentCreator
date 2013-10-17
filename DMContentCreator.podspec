@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   #s.exclude_files = 'Graphics/Default-568h@2x.png'
   s.requires_arc = true
   #s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore', 'ImageIO', 'MessageUI'
+    s.dependency 'AFNetworking'
     s.dependency 'UIImage-Resize'
     s.dependency 'SIAlertView'
     s.dependency 'LAUtilitiesStaticLib'
@@ -35,5 +36,4 @@ Pod::Spec.new do |s|
     s.dependency 'iOS7Colors'
     s.dependency 'CZPhotoPickerController'
     s.dependency 'BVReorderTableView'
-    s.dependency 'AFNetworking'
 end
