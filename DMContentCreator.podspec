@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name     = 'DMContentCreator'
-  s.version  = '0.0.4'
+  s.version  = '0.0.5'
   s.license  = 'Beerware' 
   s.summary  = 'Content creator plugin for DMConnex plugin'
   s.homepage = 'http://www.infostant.com/'
   s.author   = { 'Nattawut Singhchai' => 'wut@2bsimple.com' }
 
-  s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git',:tag => '0.0.4'}
+  s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git',:tag => '0.0.5'}
 
   s.platform = :ios
 
@@ -35,7 +35,5 @@ Pod::Spec.new do |s|
     s.dependency 'EGYWebViewController'
     s.dependency 'iOS7Colors'
     s.dependency 'CZPhotoPickerController'
-    s.dependency 'BSModalPickerView'
     s.dependency 'BVReorderTableView'
-    s.dependency 'SWTableViewCell'
 end
