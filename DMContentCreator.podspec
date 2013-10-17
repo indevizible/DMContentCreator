@@ -28,7 +28,6 @@ Pod::Spec.new do |s|
     s.dependency 'WTGlyphFontSet/fontawesome'
     s.dependency 'WTGlyphFontSet/general_foundicons'
     s.dependency 'HCYoutubeParser'
-    s.dependency 'IDMPhotoBrowser'
     s.dependency 'FoundationExtension'
     s.dependency 'RNGridMenu'
     s.dependency 'MBProgressHUD'
