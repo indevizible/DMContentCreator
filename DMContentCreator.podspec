@@ -36,6 +36,6 @@ Pod::Spec.new do |s|
     s.dependency 'iOS7Colors'
     s.dependency 'CZPhotoPickerController'
     s.dependency 'BSModalPickerView'
-    s.dependency 'BVReorderTableView',:head
+    s.dependency 'BVReorderTableView'
     s.dependency 'SWTableViewCell'
 end
