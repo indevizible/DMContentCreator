@@ -10,6 +10,7 @@
 #import "DMContentCreatorStyle.h"
 #import <BlocksKit/BlocksKit.h>
 #import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import <HCYoutubeParser/HCYoutubeParser.h>
 @interface DMPluginVideoEditor ()<UIAlertViewDelegate>{
     BOOL isDismissing;

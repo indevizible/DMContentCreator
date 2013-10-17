@@ -490,11 +490,9 @@
         [dataGenerator setCompletionBlock:^{
             progress.labelText = @"Uploading";
             if (param) {
-                AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:self.baseURL];
-                NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"ajax/saveproductmobiledata" parameters:param];
-                AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                    NSLog(@"result %@",JSON);
-                    if (!JSON[@"error"][@"error"]) {
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                AFHTTPRequestOperation *operation = [manager POST:[[self.baseURL absoluteString] stringByAppendingPathComponent:@"ajax/saveproductmobiledata"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    if (!responseObject[@"error"][@"error"]) {
                         self.navigationItem.leftBarButtonItem = closeButton;
                         if ([self.file isEqualToString:DMCTEMPFILE] ) {
                             SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage:@"This content uppload completely."];
@@ -514,23 +512,17 @@
                             }];
                             [alertSuccess show];
                         }
-                    }else{
-                        SIAlertView *alert =  [[SIAlertView alloc] initWithTitle:@"Error" andMessage:JSON[@"error"][@"error"][0][@"msg"]];
-                        [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeDefault handler:nil];
-                        [alert show];
                     }
-                    [progress hide:YES];
-                    isUploading = NO;
-                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Error" andMessage:error.localizedDescription];
                     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeDefault handler:nil];
                     [alert show];
+
                 }];
                 [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                     float percentDone = ((float)((int)totalBytesWritten) / (float)((int)totalBytesExpectedToWrite));
                     progress.progress = percentDone;
                 }];
-                [queue addOperation:operation];
             }
         }];
         [queue addOperation:dataGenerator];
