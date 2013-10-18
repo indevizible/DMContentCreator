@@ -78,7 +78,16 @@
             [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
         }
         for (id plugid in _sampleLayoutPlugins) {
-            [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
+            BOOL found = NO;
+            for (NSNumber *av in SYSTEM_AVALIABLE_PLUGIN) {
+                if ([av isEqualToNumber:plugid]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (found) {
+                [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
+            }
         }
     }else{
         self.file = [[self saveDiretory] stringByAppendingPathComponent:self.file];
@@ -97,7 +106,6 @@
                 }];
             }];
             [alertSave setCancelButtonWithTitle:@"Cancel" handler:nil];
-            
             [alertSave show];
         }];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -113,8 +121,24 @@
     [self prepareDirectory];
 }
 
+-(void)setSampleLayoutPlugins:(NSArray *)sampleLayoutPlugins{
+    NSMutableArray *arr = [NSMutableArray new];
+    for (id plugid in sampleLayoutPlugins) {
+        BOOL found = NO;
+        for (NSNumber *av in SYSTEM_AVALIABLE_PLUGIN) {
+            if ([av isEqualToNumber:plugid]) {
+                found = YES;
+                break;
+            }
+        }
+        if (found) {
+            [arr addObject:plugid];
+        }
+    }
+    _sampleLayoutPlugins = arr;
+}
+
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"Appear");
     
     [super viewDidAppear:animated];
     [self updateStatusBar];
