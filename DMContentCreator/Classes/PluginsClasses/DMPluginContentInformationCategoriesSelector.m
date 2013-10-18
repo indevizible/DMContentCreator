@@ -52,8 +52,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BOOL checked = NO;
-    for (NSNumber *tagid in _selectedCategories) {
-        if ([tagid isEqualToNumber:[[[[DMContentCreator sharedComponents] tagsList] objectAtIndex:indexPath.row] valueForKey:@"tagid"]]) {
+    for (id tagid in _selectedCategories) {
+        if ([tagid isEqual:[[[[DMContentCreator sharedComponents] tagsList] objectAtIndex:indexPath.row] valueForKey:@"tagid"]]) {
             checked = YES;
             break;
         }
@@ -76,10 +76,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BOOL checked = NO;
     NSUInteger index = 0;
-    NSNumber *selectedTagIdentifier = [[[[DMContentCreator sharedComponents] tagsList] objectAtIndex:indexPath.row] valueForKey:@"tagid"];
-    for (NSNumber *tagid in _selectedCategories) {
+    id selectedTagIdentifier = [[[[DMContentCreator sharedComponents] tagsList] objectAtIndex:indexPath.row] valueForKey:@"tagid"];
+    for (id tagid in _selectedCategories) {
         index++;
-        if ([tagid isEqualToNumber:selectedTagIdentifier]) {
+        if ([tagid isEqual:selectedTagIdentifier]) {
             checked = YES;
             selectedTagIdentifier = tagid;
             break;
