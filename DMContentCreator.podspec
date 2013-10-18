@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name     = 'DMContentCreator'
-  s.version  = '1.0.0'
-  s.license  = 'Commercial' 
+  s.version  = '1.0.1'
+  s.license  = 'Commercial'
   s.summary  = 'Content creator plugin for DMConnex plugin'
   s.homepage = 'http://www.infostant.com/'
   s.author   = { 'Nattawut Singhchai' => 'wut@2bsimple.com' }
 
-  s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git',:tag => '1.0.0'}
+  s.source   = { :git => 'https://github.com/indevizible/DMContentCreator.git',:tag => '1.0.1'}
 
   s.platform = :ios
   s.ios.deployment_target = '6.0'
