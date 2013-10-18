@@ -15,7 +15,7 @@
 #define DMCCPublic @"status"
 #define DMCCImage @"photomain"
 #define DMCCText  @"text"
-#define DMCCVideo @"embeded"
+#define DMCCVideo @"embed"
 #define DMCRegularPrice @"price"
 #define DMCSalePrice @"saleprice"
 #define DMCCurrency  @"curid"
