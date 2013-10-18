@@ -35,5 +35,5 @@ Pod::Spec.new do |s|
     s.dependency 'iOS7Colors'
     s.dependency 'CZPhotoPickerController'
     s.dependency 'BVReorderTableView'
-    s.dependency 'AFNetworking'
+    s.dependency 'AFNetworking','~>1.3.3'
 end

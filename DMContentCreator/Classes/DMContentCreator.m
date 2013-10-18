@@ -490,9 +490,9 @@
         [dataGenerator setCompletionBlock:^{
             progress.labelText = @"Uploading";
             if (param) {
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                AFHTTPRequestOperation *operation = [manager POST:[[self.baseURL absoluteString] stringByAppendingPathComponent:@"ajax/saveproductmobiledata"] parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    if (!responseObject[@"error"][@"error"]) {
+                AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:self.baseURL];
+                AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[client requestWithMethod:@"POST" path:@"ajax/saveproductmobiledata" parameters:param] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                    if (!JSON[@"error"][@"error"]) {
                         self.navigationItem.leftBarButtonItem = closeButton;
                         if ([self.file isEqualToString:DMCTEMPFILE] ) {
                             SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage:@"This content uppload completely."];
@@ -513,7 +513,8 @@
                             [alertSuccess show];
                         }
                     }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                     SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Error" andMessage:error.localizedDescription];
                     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeDefault handler:nil];
                     [alert show];
@@ -523,6 +524,7 @@
                     float percentDone = ((float)((int)totalBytesWritten) / (float)((int)totalBytesExpectedToWrite));
                     progress.progress = percentDone;
                 }];
+                [queue addOperation:operation];
             }
         }];
         [queue addOperation:dataGenerator];
