@@ -174,6 +174,7 @@
         case 10:
             fieldNameDict = @{DMCCVideo: NSLocalizedString(@"DMCCVideo", @"Video (Youtube)")};
             requiredField = @[DMCCVideo];
+            break;
         default:
             fieldNameDict =@{DMCGalleryImage1 : NSLocalizedString(@"DMCGalleryImage1", @"")};
             requiredField = @[DMCGalleryImage1];
