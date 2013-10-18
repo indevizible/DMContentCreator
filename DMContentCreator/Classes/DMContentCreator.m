@@ -19,7 +19,7 @@
 #import <SIAlertView/SIAlertView.h>
 #import <AFNetworking/AFNetworking.h>
 #import <MBProgressHUD/MBProgressHUD.h>
-#define SYSTEM_AVALIABLE_PLUGIN @[@0,@3,@4,@5,@6,@7,@8,@10]
+#define SYSTEM_AVALIABLE_PLUGIN @[@0,@3,@4,@5,@6,@7,@8,@10,@14]
 #define DMCTEMPFILE @"auto.save"
 #define DMCDATSFILE @"datasource.ds"
 
