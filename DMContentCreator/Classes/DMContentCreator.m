@@ -191,8 +191,6 @@
     DMContentPlugins *plugin = dataSource[indexPath.row];
     UIImage *image = [UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"item-background-gray.png"]];
     UIImage *line =[UIImage imageNamed:[resourcesBundle stringByAppendingPathComponent:@"line.png"]];
-//    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:((indexPath.row >= [_defaultPlugins count]) ? image : line)];
-//    backgroundView.tag =  123;
     DMContentCreatorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     if ([[dataSource objectAtIndex:indexPath.row] isKindOfClass:[NSString class]] &&
         
@@ -211,23 +209,13 @@
     else {
         cell.hidden= NO;
         NSString *string = [NSString stringWithFormat:@"DMCCDESCRIPT%02u",[plugin.pluginIdentifier unsignedIntegerValue]];
-        NSString *abc = NSLocalizedString(string, @"detail description");
-        [cell.pluginDetailsLabel setText:abc];
-//        [cell setBackgroundView:(indexPath.row < [_defaultPlugins count] && NO? nil : backgroundView)];
-
+        [cell.pluginDetailsLabel setText:NSLocalizedString(string, @"detail description")];
         cell.backgroundImage.image = (indexPath.row >= [_defaultPlugins count]) ? image : line;
         [cell.pluginTitleLabel setTextColor:_color];
         NSString *storyboardIdentifier =[NSString stringWithFormat:@"DMEPLG%02u",plugin.pluginIdentifier.unsignedIntegerValue];
-        if ([self storyboardName:@"iPhone-DMContentCreator" hasStoryboardIdentifier:storyboardIdentifier]) {
-            [cell.pluginTitleLabel setText:plugin.pluginName];
-        }else{
-            [cell.pluginTitleLabel setText:NSLocalizedString(@"DMCUNDEFINEDPLUGIN", @"Undefined plugin")];
-        }
-
+        [cell.pluginTitleLabel setText:(([self storyboardName:@"iPhone-DMContentCreator" hasStoryboardIdentifier:storyboardIdentifier]) ? plugin.pluginName : NSLocalizedString(@"DMCUNDEFINEDPLUGIN", @"Undefined plugin"))];
         [cell.pluginDetailsLabel setTextColor:[UIColor iOS7lightGrayColor]];
                [cell.thumbnailView setImage:plugin.thumbnail];
-        
-
         UILabel *pluginTitleLabel = cell.pluginTitleLabel;
         UILabel *pluginDetailsLabel     = cell.pluginDetailsLabel;
         NSDictionary *dict = NSDictionaryOfVariableBindings(pluginTitleLabel);
@@ -236,8 +224,6 @@
         [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pluginDetailsLabel]|" options:0 metrics:nil views:dict]];
     }
     [cell setBackgroundColor:[[DMContentCreator sharedComponents] themeColor]];
-
-    
     return cell;
 }
 
@@ -262,7 +248,6 @@
         UIViewController<DMContentPluginProtocol> *editView = [self.storyboard instantiateViewControllerWithIdentifier:storyboardIdentifier];
         [editView setPlugins:plugin];
         if ([editView respondsToSelector:@selector(setSavePath:)]) {
-            NSLog(@"self.file = %@",self.file);
             [editView setSavePath:self.file];
         }
         UINavigationController *nav = [[[navigationClass class] alloc] initWithRootViewController:editView];
@@ -395,8 +380,7 @@
 }
 
 +(instancetype)contentCreatorForIPhoneDevice{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:[NSBundle mainBundle]];
-    return [storyBoard instantiateViewControllerWithIdentifier:@"CTCAT"];
+    return [[UIStoryboard storyboardWithName:@"iPhone-DMContentCreator" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CTCAT"];
 }
 
 +(DMContentCreatorComponents *)sharedComponents{
@@ -411,11 +395,8 @@
 }
 
 -(void)updateStatusBar{
-    //    backupWindowsTintColor = [self.view.window tintColor];
     BOOL isDarkMode = ([[DMContentCreator sharedComponents] themeMode] == DMContentCreatorBackgroundModeDark);
     [[UIApplication sharedApplication] setStatusBarStyle:(([[DMContentCreator sharedComponents] invertedNavigation] && isDarkMode)||(!([[DMContentCreator sharedComponents] invertedNavigation] || isDarkMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) animated:YES];
-    //    [self.view.window setTintColor:[[DMContentCreator sharedComponents] invertedNavigation] ? [[DMContentCreator sharedComponents] color]:[[DMContentCreator sharedComponents] themeColor]];
-    
 }
 
 +(UIImage *)backImage{
@@ -519,22 +500,32 @@
                     if (!JSON[@"error"][@"error"]) {
                         self.navigationItem.leftBarButtonItem = closeButton;
                         if ([self.file isEqualToString:DMCTEMPFILE] ) {
-                            SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage:@"This content uppload completely."];
+                            SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage:@"This content upload completely."];
                             [alertSuccess addButtonWithTitle:@"Close" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
                                 [self dismissWithAnimated:YES];
                             }];
                             [alertSuccess show];
                         }else{
-                            SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage: @"This content upload completely, Do you want to delete save ?"];
-                            [alertSuccess addButtonWithTitle:@"Delete" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-                                //delete file
-                                [[NSFileManager defaultManager] removeItemAtPath:self.file error:nil];
-                                [self dismissWithAnimated:YES];
-                            }];
-                            [alertSuccess addButtonWithTitle:@"Close" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
-                                [self dismissWithAnimated:YES];
-                            }];
-                            [alertSuccess show];
+                            if ([[[self.file pathComponents] lastObject] isEqualToString:DMCTEMPFILE]) {
+                                SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage: @"This content upload completely !"];
+                                [alertSuccess addButtonWithTitle:@"Close" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                                    //delete file
+                                    [[NSFileManager defaultManager] removeItemAtPath:self.file error:nil];
+                                    [self dismissWithAnimated:YES];
+                                }];
+                                [alertSuccess show];
+                            }else{
+                                SIAlertView *alertSuccess = [[SIAlertView alloc] initWithTitle:@"Success !" andMessage: @"This content upload completely, Do you want to delete save ?"];
+                                [alertSuccess addButtonWithTitle:@"Delete" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                                    //delete file
+                                    [[NSFileManager defaultManager] removeItemAtPath:self.file error:nil];
+                                    [self dismissWithAnimated:YES];
+                                }];
+                                [alertSuccess addButtonWithTitle:@"Close" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
+                                    [self dismissWithAnimated:YES];
+                                }];
+                                [alertSuccess show];
+                            }
                         }
                     }
 
