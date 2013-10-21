@@ -20,7 +20,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #define SYSTEM_AVALIABLE_PLUGIN @[@0,@3,@4,@5,@6,@7,@8,@10,@14]
-#define DMCTEMPFILE @"auto.save"
+#define DMCTEMPFILE @"__AUTOSAVE__"
 #define DMCDATSFILE @"datasource.ds"
 
 @interface DMContentCreator ()<RNGridMenuDelegate>{
@@ -71,39 +71,47 @@
     [[DMContentCreator sharedComponents] setTagsList:self.tagsList];
     
     [self.tableView setBackgroundColor:[[DMContentCreator sharedComponents] themeColor]];
-
-    if (self.file == nil) {
-        dataSource = [NSMutableArray new];
-        for (id plugid in _defaultPlugins) {
-            [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
-        }
-        for (id plugid in _sampleLayoutPlugins) {
-            BOOL found = NO;
-            for (NSNumber *av in SYSTEM_AVALIABLE_PLUGIN) {
-                if ([av isEqualToNumber:plugid]) {
-                    found = YES;
-                    break;
-                }
-            }
-            if (found) {
+    [self prepareDirectory];
+    if ([[self.file lastPathComponent] isEqualToString:DMCTEMPFILE]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[self.file  stringByAppendingPathComponent:DMCDATSFILE]]) {
+            NSLog(@"ds : %@",[self.file stringByAppendingPathComponent:DMCDATSFILE]);
+            dataSource = [NSKeyedUnarchiver unarchiveObjectWithFile:[self.file stringByAppendingPathComponent:DMCDATSFILE]];
+        }else{
+            dataSource = [NSMutableArray new];
+            for (id plugid in _defaultPlugins) {
                 [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
             }
+            for (id plugid in _sampleLayoutPlugins) {
+                BOOL found = NO;
+                for (NSNumber *av in SYSTEM_AVALIABLE_PLUGIN) {
+                    if ([av isEqualToNumber:plugid]) {
+                        found = YES;
+                        break;
+                    }
+                }
+                if (found) {
+                    [dataSource addObject:[DMContentPlugins pluginWithIdentifier:[plugid unsignedIntegerValue]]];
+                }
+            }
+
         }
     }else{
-        self.file = [[self saveDiretory] stringByAppendingPathComponent:self.file];
-        dataSource = [NSKeyedUnarchiver unarchiveObjectWithFile:[[[self saveDiretory] stringByAppendingPathComponent:self.file] stringByAppendingPathComponent:DMCDATSFILE]];
+        dataSource = [NSKeyedUnarchiver unarchiveObjectWithFile:[self.file stringByAppendingPathComponent:DMCDATSFILE]];
     }
     
     if (!self.navigationController || [[self.navigationController viewControllers] count] == 1) {
         UIBarButtonItem *closeButton = [DMContentCreatorStyle barButtonItemName:@"fontawesome##angle-down" handler:^(id sender){
             UIAlertView *alertSave = [UIAlertView alertViewWithTitle:@"Quit" message:@"Do you want to quiet without save"];
-            [alertSave setCancelButtonWithTitle:@"Don't save" handler:^{
-                [self dismissWithAnimated:YES];
-            }];
             [alertSave addButtonWithTitle:@"Save" handler:^{
                 [self save:^{
                     [self dismissWithAnimated:YES];
                 }];
+            }];
+            [alertSave setCancelButtonWithTitle:@"Don't save" handler:^{
+                [self dismissWithAnimated:YES];
+                if ([[self.file lastPathComponent] isEqualToString:DMCTEMPFILE]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:self.file error:nil];
+                }
             }];
             [alertSave setCancelButtonWithTitle:@"Cancel" handler:nil];
             [alertSave show];
@@ -118,7 +126,7 @@
     }];
     self.navigationItem.rightBarButtonItem = taskButton;
     self.navigationController.navigationBar.translucent = NO;
-    [self prepareDirectory];
+    
 }
 
 -(void)setSampleLayoutPlugins:(NSArray *)sampleLayoutPlugins{
@@ -139,12 +147,11 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
     [super viewDidAppear:animated];
     [self updateStatusBar];
     [DMContentCreatorStyle setNavigationBarStyle:self.navigationController];
-    
     [self.tableView reloadData];
+    [NSKeyedArchiver archiveRootObject:dataSource toFile:[self.file stringByAppendingPathComponent:DMCDATSFILE]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -445,15 +452,6 @@
         _file = [fullFeatureDirName stringByAppendingPathComponent:DMCTEMPFILE];
     }
     [[NSFileManager defaultManager] createDirectoryAtPath:self.file withIntermediateDirectories:YES attributes:@{NSFileProtectionKey: NSFileProtectionComplete} error:nil];
-    
-    NSString *datasourceFilePath = [self.file stringByAppendingPathComponent:DMCDATSFILE];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:datasourceFilePath]) {
-        dataSource = [NSKeyedUnarchiver unarchiveObjectWithFile:datasourceFilePath];
-    }else{
-        for (NSString *fileName in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.file error:nil]) {
-            [[NSFileManager defaultManager] removeItemAtPath:[self.file stringByAppendingPathComponent:fileName] error:nil];
-        }
-    }
 }
 
 -(NSString *)saveDiretory{
