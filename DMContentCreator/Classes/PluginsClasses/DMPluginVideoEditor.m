@@ -12,6 +12,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <HCYoutubeParser/HCYoutubeParser.h>
+
 @interface DMPluginVideoEditor ()<UIAlertViewDelegate>{
     BOOL isDismissing;
 }
@@ -108,6 +109,11 @@
         _plugins[DMCCVideo] = string;
         [_videoThubnailView setImage:nil];
         [_videoThubnailView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://img.youtube.com/vi/%@/0.jpg",_plugins[DMCCVideo]]]];
+    }
+    if (_plugins[DMCCVideo]) {
+        _plugins[DMCCVideoFullURLKEY] = DMCCVideoURLFromYoutubeID(_plugins[DMCCVideo]);
+    }else{
+        [_plugins removeObjectForKey:DMCCVideoFullURLKEY];
     }
 }
 @end

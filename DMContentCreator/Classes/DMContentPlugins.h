@@ -16,6 +16,8 @@
 #define DMCCImage @"photomain"
 #define DMCCText  @"text"
 #define DMCCVideo @"embed"
+#define DMCCVideoFullURLKEY @"url"
+#define DMCCVideoURLFromYoutubeID(YID) [NSString stringWithFormat:@"www.youtube.com/embed/%@",YID]
 #define DMCRegularPrice @"price"
 #define DMCSalePrice @"saleprice"
 #define DMCCurrency  @"curid"
